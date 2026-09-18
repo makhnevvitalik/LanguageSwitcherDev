@@ -1,0 +1,1436 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    " (Default)": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": " (По умолчанию)"
+          }
+        }
+      }
+    },
+    "%.1f s": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%.1f с"
+          }
+        }
+      }
+    },
+    "%1$@ needs Input Monitoring to detect your global text shortcut. The shortcut is saved. Allow %1$@ in %2$@. If macOS asks, choose Quit & Reopen; the app will reopen and continue with Accessibility.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ требуется доступ к мониторингу ввода, чтобы распознавать глобальное сочетание для работы с текстом. Сочетание сохранено. Разрешите доступ для %1$@ в разделе «%2$@». Если macOS предложит, выберите «Завершить и открыть снова»: приложение перезапустится и продолжит настройку Универсального доступа."
+          }
+        }
+      }
+    },
+    "%@ can start automatically when you sign in, so keyboard switching is available right away.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ может запускаться автоматически при входе в систему, чтобы переключение раскладки было доступно сразу."
+          }
+        }
+      }
+    },
+    "%@ is available.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Доступна версия %@."
+          }
+        }
+      }
+    },
+    "%@ shortcut": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сочетание для «%@»"
+          }
+        }
+      }
+    },
+    "%@ uses %@": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@» использует %@"
+          }
+        }
+      }
+    },
+    "About": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "О приложении"
+          }
+        }
+      }
+    },
+    "About %@": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "О приложении %@"
+          }
+        }
+      }
+    },
+    "Accessibility access is required.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Требуется доступ к Универсальному доступу."
+          }
+        }
+      }
+    },
+    "Active inputs": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Активные источники ввода"
+          }
+        }
+      }
+    },
+    "At least two active": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Минимум два активных"
+          }
+        }
+      }
+    },
+    "Add %1$@ manually in %2$@:\n\n1. Click +.\n2. Select /Applications/%1$@.app.\n3. Turn the app on.\n\n%3$@": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Добавьте %1$@ вручную в разделе «%2$@»:\n\n1. Нажмите +.\n2. Выберите /Applications/%1$@.app.\n3. Включите приложение.\n\n%3$@"
+          }
+        }
+      }
+    },
+    "After allowing access, run the text action again.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "После предоставления доступа повторите действие с текстом."
+          }
+        }
+      }
+    },
+    "Allow %1$@ in %2$@, then return to the app. If macOS asks, choose Quit & Reopen.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разрешите доступ для %1$@ в разделе «%2$@», затем вернитесь в приложение. Если macOS предложит, выберите «Завершить и открыть снова»."
+          }
+        }
+      }
+    },
+    "Allow %@ to start at login": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разрешите %@ запускаться при входе"
+          }
+        }
+      }
+    },
+    "Already assigned to %@.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уже назначено действию «%@»."
+          }
+        }
+      }
+    },
+    "Apply to": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Обрабатывать"
+          }
+        }
+      }
+    },
+    "CC BY-SA 4.0 Legal Code": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Текст лицензии CC BY-SA 4.0"
+          }
+        }
+      }
+    },
+    "Cancel": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отмена"
+          }
+        }
+      }
+    },
+    "Capitalize Words": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "С прописной буквы"
+          }
+        }
+      }
+    },
+    "Change case": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Изменить регистр"
+          }
+        }
+      }
+    },
+    "Change the letter case of selected text.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Изменить регистр выделенного текста."
+          }
+        }
+      }
+    },
+    "Select case": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выбрать регистр"
+          }
+        }
+      }
+    },
+    "Press and release Command to switch to the next active input source.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нажмите и отпустите Command, чтобы переключиться на следующий активный источник ввода."
+          }
+        }
+      }
+    },
+    "Press and release Fn/Globe to switch to the next active input source. Set the macOS Fn/Globe action to Do Nothing.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нажмите и отпустите Fn/Globe, чтобы переключиться на следующий активный источник ввода. В macOS выберите для Fn/Globe действие «Ничего не делать»."
+          }
+        }
+      }
+    },
+    "If text is selected, the action applies to it; otherwise, to all tracked typed text.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Если текст выделен, действие применяется к нему; иначе — ко всему отслеживаемому набранному тексту."
+          }
+        }
+      }
+    },
+    "If text is selected, the action applies to it; otherwise, to the most recently tracked word.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Если текст выделен, действие применяется к нему; иначе — к последнему отслеживаемому слову."
+          }
+        }
+      }
+    },
+    "The action applies only to selected text.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Действие применяется только к выделенному тексту."
+          }
+        }
+      }
+    },
+    "Change…": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Изменить…"
+          }
+        }
+      }
+    },
+    "Check for Updates": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проверить обновления"
+          }
+        }
+      }
+    },
+    "Checking…": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проверка…"
+          }
+        }
+      }
+    },
+    "Choose a valid shortcut before saving.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перед сохранением задайте допустимое сочетание."
+          }
+        }
+      }
+    },
+    "Choose a valid shortcut.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Задайте допустимое сочетание."
+          }
+        }
+      }
+    },
+    "Choose whether to press a shortcut once, repeat the whole shortcut, or hold modifiers and tap the final key twice.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выберите: нажать сочетание один раз, повторить его целиком или удерживать модификаторы и дважды нажать последнюю клавишу."
+          }
+        }
+      }
+    },
+    "Clear": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Очистить"
+          }
+        }
+      }
+    },
+    "Command alone is used by Keyboard switching. Choose different keys.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Command без других клавиш используется для переключения раскладки. Выберите другое сочетание."
+          }
+        }
+      }
+    },
+    "Command switching conflicts with a text action that uses Command alone. Clear or change that text shortcut first.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Переключение с помощью Command конфликтует с действием, которому назначен Command без других клавиш. Сначала очистите или измените это сочетание."
+          }
+        }
+      }
+    },
+    "Command switching was turned off.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Переключение с помощью Command отключено."
+          }
+        }
+      }
+    },
+    "Configure…": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Настроить…"
+          }
+        }
+      }
+    },
+    "Convert Layout": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сменить раскладку"
+          }
+        }
+      }
+    },
+    "Could not contact GitHub. Please try again.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось подключиться к GitHub. Попробуйте ещё раз."
+          }
+        }
+      }
+    },
+    "Could not determine the installed app version.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось определить установленную версию приложения."
+          }
+        }
+      }
+    },
+    "Could not restart %@.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось перезапустить %@."
+          }
+        }
+      }
+    },
+    "Could not update Open at Login.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось изменить настройку запуска при входе."
+          }
+        }
+      }
+    },
+    "Double-press interval": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Интервал двойного нажатия"
+          }
+        }
+      }
+    },
+    "Fn/Globe switching was turned off.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Переключение с помощью Fn/Globe отключено."
+          }
+        }
+      }
+    },
+    "Frequency Data Attribution": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сведения об источнике частотных данных"
+          }
+        }
+      }
+    },
+    "General": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Основные"
+          }
+        }
+      }
+    },
+    "GitHub returned HTTP %d.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub вернул ошибку HTTP %d."
+          }
+        }
+      }
+    },
+    "GitHub returned an invalid response.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub вернул некорректный ответ."
+          }
+        }
+      }
+    },
+    "GitHub returned invalid update information.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub вернул некорректные сведения об обновлении."
+          }
+        }
+      }
+    },
+    "Grant Access": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Предоставить доступ"
+          }
+        }
+      }
+    },
+    "Hold %@ · Tap %@ ×2": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удерживать %@ · Нажать %@ ×2"
+          }
+        }
+      }
+    },
+    "Hold %@ · Tap F%d": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удерживать %@ · Нажать F%d"
+          }
+        }
+      }
+    },
+    "Hold + twice": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удержание + двойное нажатие"
+          }
+        }
+      }
+    },
+    "Hold at least one modifier, then press F1–F20.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удерживайте хотя бы один модификатор, затем нажмите F1–F20."
+          }
+        }
+      }
+    },
+    "Hold modifier keys": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удерживайте модификаторы"
+          }
+        }
+      }
+    },
+    "Hold modifier keys and tap the final key twice.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удерживайте модификаторы и дважды нажмите последнюю клавишу."
+          }
+        }
+      }
+    },
+    "Input Monitoring is paused": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мониторинг ввода приостановлен"
+          }
+        }
+      }
+    },
+    "Input Monitoring is unavailable.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мониторинг ввода недоступен."
+          }
+        }
+      }
+    },
+    "Invert Case": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Инвертировать регистр"
+          }
+        }
+      }
+    },
+    "Press the final key": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нажмите последнюю клавишу"
+          }
+        }
+      }
+    },
+    "Keep the held modifier keys down until the final key is released.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не отпускайте удерживаемые модификаторы, пока не отпустите последнюю клавишу."
+          }
+        }
+      }
+    },
+    "Keyboard switching": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Переключение раскладки"
+          }
+        }
+      }
+    },
+    "Language": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Язык"
+          }
+        }
+      }
+    },
+    "License for %@": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лицензия %@"
+          }
+        }
+      }
+    },
+    "Language Switcher materials and bundled language data are covered by separate license terms.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Материалы Language Switcher и встроенные языковые данные распространяются на разных условиях лицензирования."
+          }
+        }
+      }
+    },
+    "Last word": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Последнее слово"
+          }
+        }
+      }
+    },
+    "Later": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Позже"
+          }
+        }
+      }
+    },
+    "Licenses & Acknowledgements": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лицензии и благодарности"
+          }
+        }
+      }
+    },
+    "Licenses & Acknowledgements…": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лицензии и благодарности…"
+          }
+        }
+      }
+    },
+    "Lowercase": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нижний регистр"
+          }
+        }
+      }
+    },
+    "Maximum pause between two presses": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пауза между нажатиями"
+          }
+        }
+      }
+    },
+    "Maximum time for a switching-key tap": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Длительность короткого нажатия"
+          }
+        }
+      }
+    },
+    "Not Now": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не сейчас"
+          }
+        }
+      }
+    },
+    "Not Set": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не задано"
+          }
+        }
+      }
+    },
+    "OK": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ОК"
+          }
+        }
+      }
+    },
+    "Once": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Один раз"
+          }
+        }
+      }
+    },
+    "Open Accessibility Settings": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Открыть настройки Универсального доступа"
+          }
+        }
+      }
+    },
+    "Open Keyboard Settings": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Открыть настройки клавиатуры"
+          }
+        }
+      }
+    },
+    "Open Login Items Settings": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Открыть настройки объектов входа"
+          }
+        }
+      }
+    },
+    "Open System Preferences": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Открыть Системные настройки"
+          }
+        }
+      }
+    },
+    "Open System Settings": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Открыть Системные настройки"
+          }
+        }
+      }
+    },
+    "Open at Login": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запускать при входе"
+          }
+        }
+      }
+    },
+    "Press a shortcut": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нажмите сочетание клавиш"
+          }
+        }
+      }
+    },
+    "Press and release the shortcut once.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нажмите и отпустите сочетание."
+          }
+        }
+      }
+    },
+    "Modifier keys and F1–F20": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Модификаторы и F1–F20"
+          }
+        }
+      }
+    },
+    "Press a new shortcut to replace": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нажмите новое сочетание, чтобы заменить"
+          }
+        }
+      }
+    },
+    "Press pattern": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Способ нажатия"
+          }
+        }
+      }
+    },
+    "Quit": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Завершить"
+          }
+        }
+      }
+    },
+    "Quit %@ from its menu, then open it again from Applications.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Завершите %@ через его меню, затем снова откройте из папки «Программы»."
+          }
+        }
+      }
+    },
+    "Related shortcut": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Связанное сочетание"
+          }
+        }
+      }
+    },
+    "Related shortcuts": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Связанные сочетания"
+          }
+        }
+      }
+    },
+    "Release the keys to record": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отпустите клавиши, чтобы записать"
+          }
+        }
+      }
+    },
+    "Release the final key to record": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отпустите последнюю клавишу, чтобы записать"
+          }
+        }
+      }
+    },
+    "Repeat the whole shortcut twice.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повторите всё сочетание два раза."
+          }
+        }
+      }
+    },
+    "Restart %@": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перезапустить %@"
+          }
+        }
+      }
+    },
+    "Resume…": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Возобновить…"
+          }
+        }
+      }
+    },
+    "Save": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сохранить"
+          }
+        }
+      }
+    },
+    "Scroll input sources left": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прокрутить источники ввода влево"
+          }
+        }
+      }
+    },
+    "Scroll input sources right": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прокрутить источники ввода вправо"
+          }
+        }
+      }
+    },
+    "Selection": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выделение"
+          }
+        }
+      }
+    },
+    "Set shortcut": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Настройка сочетания"
+          }
+        }
+      }
+    },
+    "Set…": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Задать…"
+          }
+        }
+      }
+    },
+    "Shortcut": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сочетание"
+          }
+        }
+      }
+    },
+    "Shortcut tap duration": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Длительность нажатия"
+          }
+        }
+      }
+    },
+    "Shortcuts": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сочетания клавиш"
+          }
+        }
+      }
+    },
+    "Show in Menu Bar": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показывать в строке меню"
+          }
+        }
+      }
+    },
+    "Start %@ at login?": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запускать %@ при входе?"
+          }
+        }
+      }
+    },
+    "Start at Login": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запускать при входе"
+          }
+        }
+      }
+    },
+    "Step 1 of 2: Allow Input Monitoring": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шаг 1 из 2: разрешите мониторинг ввода"
+          }
+        }
+      }
+    },
+    "Step 2 of 2: Allow Accessibility": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шаг 2 из 2: разрешите Универсальный доступ"
+          }
+        }
+      }
+    },
+    "Switch": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Переключатель"
+          }
+        }
+      }
+    },
+    "Switch keyboard layouts and fix text typed in the wrong layout or case.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Переключайте раскладки и исправляйте текст, набранный в неверной раскладке или регистре."
+          }
+        }
+      }
+    },
+    "Switch language with": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Переключать с помощью"
+          }
+        }
+      }
+    },
+    "System Preferences > Keyboard": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Системные настройки > Клавиатура"
+          }
+        }
+      }
+    },
+    "System Preferences > Security & Privacy > Privacy > Accessibility": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Системные настройки > Защита и безопасность > Конфиденциальность > Универсальный доступ"
+          }
+        }
+      }
+    },
+    "System Preferences > Security & Privacy > Privacy > Input Monitoring": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Системные настройки > Защита и безопасность > Конфиденциальность > Мониторинг ввода"
+          }
+        }
+      }
+    },
+    "System Settings > Keyboard": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Системные настройки > Клавиатура"
+          }
+        }
+      }
+    },
+    "System Settings > Privacy & Security > Accessibility": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Системные настройки > Конфиденциальность и безопасность > Универсальный доступ"
+          }
+        }
+      }
+    },
+    "System Settings > Privacy & Security > Input Monitoring": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Системные настройки > Конфиденциальность и безопасность > Мониторинг ввода"
+          }
+        }
+      }
+    },
+    "Text action shortcuts": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сочетания для работы с текстом"
+          }
+        }
+      }
+    },
+    "Text actions": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Действия с текстом"
+          }
+        }
+      }
+    },
+    "The %@ license is unavailable.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лицензия %@ недоступна."
+          }
+        }
+      }
+    },
+    "The app could not read the current Fn/Globe system setting. In %@, set the Fn/Globe key action to Do Nothing, then enable Fn/Globe in the app again.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Приложению не удалось прочитать системную настройку Fn/Globe. В разделе «%@» выберите для Fn/Globe действие «Ничего не делать», затем снова включите Fn/Globe в приложении."
+          }
+        }
+      }
+    },
+    "The held and tapped modifier keys must be different.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удерживаемый и нажимаемый модификаторы должны отличаться."
+          }
+        }
+      }
+    },
+    "Then press the final key": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нажмите последнюю клавишу"
+          }
+        }
+      }
+    },
+    "Third-Party Materials & Notices": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сторонние материалы и уведомления"
+          }
+        }
+      }
+    },
+    "Third-party notices are unavailable.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уведомления о сторонних материалах недоступны."
+          }
+        }
+      }
+    },
+    "To restore the icon, reopen %@ from Spotlight": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чтобы вернуть значок, откройте %@ через Spotlight"
+          }
+        }
+      }
+    },
+    "Try Again": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повторить"
+          }
+        }
+      }
+    },
+    "Twice": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дважды"
+          }
+        }
+      }
+    },
+    "Typed text": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Набранное"
+          }
+        }
+      }
+    },
+    "Unknown version": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Версия неизвестна"
+          }
+        }
+      }
+    },
+    "Uppercase": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Верхний регистр"
+          }
+        }
+      }
+    },
+    "Use Shift, Control, Option, Command, or F1–F20.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Используйте Shift, Control, Option, Command или F1–F20."
+          }
+        }
+      }
+    },
+    "Version %@": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Версия %@"
+          }
+        }
+      }
+    },
+    "View Release %@": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Открыть выпуск %@"
+          }
+        }
+      }
+    },
+    "Your shortcut is saved and will work after access is allowed.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сочетание сохранено и заработает после предоставления доступа."
+          }
+        }
+      }
+    },
+    "You’re up to date.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Установлена последняя версия."
+          }
+        }
+      }
+    },
+    "macOS is using the Fn/Globe key for a system action. In %@, set the Fn/Globe key action to Do Nothing, then enable Fn/Globe in the app again.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS использует клавишу Fn/Globe для системного действия. В разделе «%@» выберите для Fn/Globe действие «Ничего не делать», затем снова включите Fn/Globe в приложении."
+          }
+        }
+      }
+    },
+    "macOS needs your approval. Open Login Items in System Settings and enable %@.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Требуется подтверждение macOS. Откройте раздел «Объекты входа» в Системных настройках и включите %@."
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

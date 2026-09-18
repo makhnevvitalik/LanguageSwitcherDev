@@ -1,0 +1,559 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B10000012F00000100000001 /* LanguageSwitcherDomain in Frameworks */ = {isa = PBXBuildFile; productRef = B10000052F00000100000001 /* LanguageSwitcherDomain */; };
+		B10000022F00000100000001 /* LanguageSwitcherApplication in Frameworks */ = {isa = PBXBuildFile; productRef = B10000062F00000100000001 /* LanguageSwitcherApplication */; };
+		B10000032F00000100000001 /* LanguageSwitcherMacOS in Frameworks */ = {isa = PBXBuildFile; productRef = B10000072F00000100000001 /* LanguageSwitcherMacOS */; };
+		C10000012F00000100000001 /* LanguageSwitcherLexicon in Frameworks */ = {isa = PBXBuildFile; productRef = C10000052F00000100000001 /* LanguageSwitcherLexicon */; };
+		F10000012F00000100000001 /* LanguageSwitcherEdition in Frameworks */ = {isa = PBXBuildFile; productRef = F10000062F00000100000001 /* LanguageSwitcherEdition */; };
+		D10000012F00000100000001 /* LanguageSwitcherLocalization in Frameworks */ = {isa = PBXBuildFile; productRef = D10000062F00000100000001 /* LanguageSwitcherLocalization */; };
+		E10000012F00000100000001 /* LanguageSwitcherPlusEdition in Frameworks */ = {isa = PBXBuildFile; productRef = E10000062F00000100000001 /* LanguageSwitcherPlusEdition */; };
+		B10000082F00000100000001 /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000A2F00000100000001 /* AppController.swift */; };
+		B10000092F00000100000001 /* AppCompositionRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000B2F00000100000001 /* AppCompositionRoot.swift */; };
+		D20000012F00000100000001 /* AppLocalization.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000022F00000100000001 /* AppLocalization.swift */; };
+		D40000012F00000100000001 /* AppStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40000022F00000100000001 /* AppStyle.swift */; };
+		B30000012F00000100000001 /* ApplicationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30000022F00000100000001 /* ApplicationCoordinator.swift */; };
+		B40000012F00000100000001 /* TextActionDebugJournal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40000022F00000100000001 /* TextActionDebugJournal.swift */; };
+		B20000012F00000100000001 /* StatusMenuState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000112F00000100000001 /* StatusMenuState.swift */; };
+		B20000032F00000100000001 /* TextToolsMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000132F00000100000001 /* TextToolsMenuController.swift */; };
+		B20000042F00000100000001 /* KeyboardSwitchingMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000142F00000100000001 /* KeyboardSwitchingMenuController.swift */; };
+		B20000052F00000100000001 /* StatusMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000152F00000100000001 /* StatusMenuController.swift */; };
+		B20000062F00000100000001 /* TextActionPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000162F00000100000001 /* TextActionPresentation.swift */; };
+		B20000072F00000100000001 /* TextShortcutSettingsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000172F00000100000001 /* TextShortcutSettingsWindowController.swift */; };
+		B20000082F00000100000001 /* TextShortcutEditorSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000182F00000100000001 /* TextShortcutEditorSheetController.swift */; };
+		B20000092F00000100000001 /* MenuCardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000192F00000100000001 /* MenuCardLayout.swift */; };
+		B200000A2F00000100000001 /* ActiveInputsMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B200001A2F00000100000001 /* ActiveInputsMenuController.swift */; };
+		4C79BECE2A553F0D006A793C /* LanguageSwitcherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C79BECD2A553F0D006A793C /* LanguageSwitcherApp.swift */; };
+		4C79BED02A553F0D006A793C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C79BECF2A553F0D006A793C /* AppDelegate.swift */; };
+		4C79BED22A553F0E006A793C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C79BED12A553F0E006A793C /* Assets.xcassets */; };
+		4C79BED52A553F0E006A793C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C79BED42A553F0E006A793C /* Preview Assets.xcassets */; };
+		A1B2C3D42D0AF0010000000C /* AboutWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42D0AF0010000000A /* AboutWindowController.swift */; };
+		A1B2C3D42D0AF00100000016 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42D0AF00100000017 /* LICENSE */; };
+		A1B2C3D42D0AF00100000018 /* THIRD_PARTY_NOTICES.md in Resources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42D0AF00100000019 /* THIRD_PARTY_NOTICES.md */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		B100000A2F00000100000001 /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
+		B100000B2F00000100000001 /* AppCompositionRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCompositionRoot.swift; sourceTree = "<group>"; };
+		D20000022F00000100000001 /* AppLocalization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLocalization.swift; sourceTree = "<group>"; };
+		D40000022F00000100000001 /* AppStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStyle.swift; sourceTree = "<group>"; };
+		B30000022F00000100000001 /* ApplicationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinator.swift; sourceTree = "<group>"; };
+		B40000022F00000100000001 /* TextActionDebugJournal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextActionDebugJournal.swift; sourceTree = "<group>"; };
+		B20000112F00000100000001 /* StatusMenuState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusMenuState.swift; sourceTree = "<group>"; };
+		B20000132F00000100000001 /* TextToolsMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextToolsMenuController.swift; sourceTree = "<group>"; };
+		B20000142F00000100000001 /* KeyboardSwitchingMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardSwitchingMenuController.swift; sourceTree = "<group>"; };
+		B20000152F00000100000001 /* StatusMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusMenuController.swift; sourceTree = "<group>"; };
+		B20000162F00000100000001 /* TextActionPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextActionPresentation.swift; sourceTree = "<group>"; };
+		B20000172F00000100000001 /* TextShortcutSettingsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextShortcutSettingsWindowController.swift; sourceTree = "<group>"; };
+		B20000182F00000100000001 /* TextShortcutEditorSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextShortcutEditorSheetController.swift; sourceTree = "<group>"; };
+		B20000192F00000100000001 /* MenuCardLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCardLayout.swift; sourceTree = "<group>"; };
+		B200001A2F00000100000001 /* ActiveInputsMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveInputsMenuController.swift; sourceTree = "<group>"; };
+		4C79BECA2A553F0D006A793C /* Language Switcher Plus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Language Switcher Plus.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C79BECD2A553F0D006A793C /* LanguageSwitcherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSwitcherApp.swift; sourceTree = "<group>"; };
+		4C79BECF2A553F0D006A793C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D30000012F00000100000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4C79BED12A553F0E006A793C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4C79BED42A553F0E006A793C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		4C79BED62A553F0E006A793C /* LanguageSwitcherPlus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LanguageSwitcherPlus.entitlements; sourceTree = "<group>"; };
+		A1B2C3D42D0AF0010000000A /* AboutWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutWindowController.swift; sourceTree = "<group>"; };
+		A1B2C3D42D0AF00100000017 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		A1B2C3D42D0AF00100000019 /* THIRD_PARTY_NOTICES.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = THIRD_PARTY_NOTICES.md; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4C79BEC72A553F0D006A793C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B10000012F00000100000001 /* LanguageSwitcherDomain in Frameworks */,
+				B10000022F00000100000001 /* LanguageSwitcherApplication in Frameworks */,
+				C10000012F00000100000001 /* LanguageSwitcherLexicon in Frameworks */,
+				F10000012F00000100000001 /* LanguageSwitcherEdition in Frameworks */,
+				D10000012F00000100000001 /* LanguageSwitcherLocalization in Frameworks */,
+				B10000032F00000100000001 /* LanguageSwitcherMacOS in Frameworks */,
+				E10000012F00000100000001 /* LanguageSwitcherPlusEdition in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4C79BEC12A553F0D006A793C = {
+			isa = PBXGroup;
+			children = (
+				A1B2C3D42D0AF00100000017 /* LICENSE */,
+				A1B2C3D42D0AF00100000019 /* THIRD_PARTY_NOTICES.md */,
+				4C79BECC2A553F0D006A793C /* App */,
+				4C79BECB2A553F0D006A793C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4C79BECB2A553F0D006A793C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4C79BECA2A553F0D006A793C /* Language Switcher Plus.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4C79BECC2A553F0D006A793C /* App */ = {
+			isa = PBXGroup;
+			children = (
+				B100000C2F00000100000001 /* Application */,
+				B40000032F00000100000001 /* Debug */,
+				B20001012F00000100000001 /* Menu */,
+				B20001022F00000100000001 /* Presentation */,
+				B20001032F00000100000001 /* Windows */,
+				4C79BECD2A553F0D006A793C /* LanguageSwitcherApp.swift */,
+				4C79BECF2A553F0D006A793C /* AppDelegate.swift */,
+				D30000012F00000100000001 /* Info.plist */,
+				4C79BED12A553F0E006A793C /* Assets.xcassets */,
+				4C79BED62A553F0E006A793C /* LanguageSwitcherPlus.entitlements */,
+				4C79BED32A553F0E006A793C /* Preview Content */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		B100000C2F00000100000001 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				B100000A2F00000100000001 /* AppController.swift */,
+				B100000B2F00000100000001 /* AppCompositionRoot.swift */,
+				D20000022F00000100000001 /* AppLocalization.swift */,
+				B30000022F00000100000001 /* ApplicationCoordinator.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		B40000032F00000100000001 /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				B40000022F00000100000001 /* TextActionDebugJournal.swift */,
+			);
+			path = Debug;
+			sourceTree = "<group>";
+		};
+		B20001012F00000100000001 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				B20000112F00000100000001 /* StatusMenuState.swift */,
+				B20000132F00000100000001 /* TextToolsMenuController.swift */,
+				B20000142F00000100000001 /* KeyboardSwitchingMenuController.swift */,
+				B20000152F00000100000001 /* StatusMenuController.swift */,
+				B20000192F00000100000001 /* MenuCardLayout.swift */,
+				B200001A2F00000100000001 /* ActiveInputsMenuController.swift */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		B20001022F00000100000001 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				D40000022F00000100000001 /* AppStyle.swift */,
+				B20000162F00000100000001 /* TextActionPresentation.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		B20001032F00000100000001 /* Windows */ = {
+			isa = PBXGroup;
+			children = (
+				A1B2C3D42D0AF0010000000A /* AboutWindowController.swift */,
+				B20000172F00000100000001 /* TextShortcutSettingsWindowController.swift */,
+				B20000182F00000100000001 /* TextShortcutEditorSheetController.swift */,
+			);
+			path = Windows;
+			sourceTree = "<group>";
+		};
+		4C79BED32A553F0E006A793C /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				4C79BED42A553F0E006A793C /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4C79BEC92A553F0D006A793C /* LanguageSwitcher */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C79BEEF2A553F0E006A793C /* Build configuration list for PBXNativeTarget "LanguageSwitcher" */;
+			buildPhases = (
+				4C79BEC62A553F0D006A793C /* Sources */,
+				4C79BEC72A553F0D006A793C /* Frameworks */,
+				4C79BEC82A553F0D006A793C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LanguageSwitcher;
+			packageProductDependencies = (
+				B10000052F00000100000001 /* LanguageSwitcherDomain */,
+				B10000062F00000100000001 /* LanguageSwitcherApplication */,
+				C10000052F00000100000001 /* LanguageSwitcherLexicon */,
+				F10000062F00000100000001 /* LanguageSwitcherEdition */,
+				D10000062F00000100000001 /* LanguageSwitcherLocalization */,
+				B10000072F00000100000001 /* LanguageSwitcherMacOS */,
+				E10000062F00000100000001 /* LanguageSwitcherPlusEdition */,
+			);
+			productName = LanguageSwitcher;
+			productReference = 4C79BECA2A553F0D006A793C /* Language Switcher Plus.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4C79BEC22A553F0D006A793C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1430;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					4C79BEC92A553F0D006A793C = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+				};
+			};
+			buildConfigurationList = 4C79BEC52A553F0D006A793C /* Build configuration list for PBXProject "LanguageSwitcher" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				ru,
+				Base,
+			);
+			mainGroup = 4C79BEC12A553F0D006A793C;
+			packageReferences = (
+				B10000042F00000100000001 /* XCLocalSwiftPackageReference "Packages/LanguageSwitcherKit" */,
+				E10000052F00000100000001 /* XCLocalSwiftPackageReference "Packages/LanguageSwitcherPlusEdition" */,
+			);
+			productRefGroup = 4C79BECB2A553F0D006A793C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4C79BEC92A553F0D006A793C /* LanguageSwitcher */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4C79BEC82A553F0D006A793C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1B2C3D42D0AF00100000016 /* LICENSE in Resources */,
+				A1B2C3D42D0AF00100000018 /* THIRD_PARTY_NOTICES.md in Resources */,
+				4C79BED52A553F0E006A793C /* Preview Assets.xcassets in Resources */,
+				4C79BED22A553F0E006A793C /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4C79BEC62A553F0D006A793C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B10000082F00000100000001 /* AppController.swift in Sources */,
+				B10000092F00000100000001 /* AppCompositionRoot.swift in Sources */,
+				D20000012F00000100000001 /* AppLocalization.swift in Sources */,
+				D40000012F00000100000001 /* AppStyle.swift in Sources */,
+				B30000012F00000100000001 /* ApplicationCoordinator.swift in Sources */,
+				B40000012F00000100000001 /* TextActionDebugJournal.swift in Sources */,
+				B20000012F00000100000001 /* StatusMenuState.swift in Sources */,
+				B20000032F00000100000001 /* TextToolsMenuController.swift in Sources */,
+				B20000042F00000100000001 /* KeyboardSwitchingMenuController.swift in Sources */,
+				B20000052F00000100000001 /* StatusMenuController.swift in Sources */,
+				B20000092F00000100000001 /* MenuCardLayout.swift in Sources */,
+				B200000A2F00000100000001 /* ActiveInputsMenuController.swift in Sources */,
+				B20000062F00000100000001 /* TextActionPresentation.swift in Sources */,
+				B20000072F00000100000001 /* TextShortcutSettingsWindowController.swift in Sources */,
+				B20000082F00000100000001 /* TextShortcutEditorSheetController.swift in Sources */,
+				4C79BED02A553F0D006A793C /* AppDelegate.swift in Sources */,
+				A1B2C3D42D0AF0010000000C /* AboutWindowController.swift in Sources */,
+				4C79BECE2A553F0D006A793C /* LanguageSwitcherApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		4C79BEED2A553F0E006A793C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG INTERNAL_BUILD";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		4C79BEEE2A553F0E006A793C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		4C79BEF02A553F0E006A793C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = App/LanguageSwitcherPlus.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"App/Preview Content\"";
+				DEVELOPMENT_TEAM = P66575H26Z;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_DEBUG_DYLIB = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = App/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.makhnevvitalik.LanguageSwitcherPlus;
+				PRODUCT_NAME = "Language Switcher Plus";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		4C79BEF12A553F0E006A793C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = App/LanguageSwitcherPlus.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"App/Preview Content\"";
+				DEVELOPMENT_TEAM = P66575H26Z;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = App/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.makhnevvitalik.LanguageSwitcherPlus;
+				PRODUCT_NAME = "Language Switcher Plus";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4C79BEC52A553F0D006A793C /* Build configuration list for PBXProject "LanguageSwitcher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C79BEED2A553F0E006A793C /* Debug */,
+				4C79BEEE2A553F0E006A793C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4C79BEEF2A553F0E006A793C /* Build configuration list for PBXNativeTarget "LanguageSwitcher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C79BEF02A553F0E006A793C /* Debug */,
+				4C79BEF12A553F0E006A793C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		B10000042F00000100000001 /* XCLocalSwiftPackageReference "Packages/LanguageSwitcherKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/LanguageSwitcherKit;
+		};
+		E10000052F00000100000001 /* XCLocalSwiftPackageReference "Packages/LanguageSwitcherPlusEdition" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/LanguageSwitcherPlusEdition;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B10000052F00000100000001 /* LanguageSwitcherDomain */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B10000042F00000100000001 /* XCLocalSwiftPackageReference "Packages/LanguageSwitcherKit" */;
+			productName = LanguageSwitcherDomain;
+		};
+		B10000062F00000100000001 /* LanguageSwitcherApplication */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B10000042F00000100000001 /* XCLocalSwiftPackageReference "Packages/LanguageSwitcherKit" */;
+			productName = LanguageSwitcherApplication;
+		};
+		B10000072F00000100000001 /* LanguageSwitcherMacOS */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B10000042F00000100000001 /* XCLocalSwiftPackageReference "Packages/LanguageSwitcherKit" */;
+			productName = LanguageSwitcherMacOS;
+		};
+		C10000052F00000100000001 /* LanguageSwitcherLexicon */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B10000042F00000100000001 /* XCLocalSwiftPackageReference "Packages/LanguageSwitcherKit" */;
+			productName = LanguageSwitcherLexicon;
+		};
+		F10000062F00000100000001 /* LanguageSwitcherEdition */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B10000042F00000100000001 /* XCLocalSwiftPackageReference "Packages/LanguageSwitcherKit" */;
+			productName = LanguageSwitcherEdition;
+		};
+		D10000062F00000100000001 /* LanguageSwitcherLocalization */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B10000042F00000100000001 /* XCLocalSwiftPackageReference "Packages/LanguageSwitcherKit" */;
+			productName = LanguageSwitcherLocalization;
+		};
+		E10000062F00000100000001 /* LanguageSwitcherPlusEdition */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E10000052F00000100000001 /* XCLocalSwiftPackageReference "Packages/LanguageSwitcherPlusEdition" */;
+			productName = LanguageSwitcherPlusEdition;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 4C79BEC22A553F0D006A793C /* Project object */;
+}

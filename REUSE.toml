@@ -1,0 +1,71 @@
+version = 1
+
+[[annotations]]
+path = [
+  "App/**/*.entitlements",
+  "App/**/*.json",
+  "App/**/*.plist",
+  "App/**/*.png",
+  "App/**/*.svg",
+  "Artwork/*.svg",
+  "LanguageSwitcher.xcodeproj/**",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLocalization/Resources/*.xcstrings",
+  "Packages/LanguageSwitcherKit/Tests/LanguageSwitcherLexiconTests/Fixtures/*.txt",
+]
+precedence = "override"
+SPDX-FileCopyrightText = "2026 Vitalik Makhnev"
+SPDX-License-Identifier = "MIT AND LicenseRef-Commons-Clause-1.0"
+
+[[annotations]]
+path = [
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/af.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/bg.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/br.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/bs.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/ca.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/cs.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/da.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/de.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/el.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/en.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/eo.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/es.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/et.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/eu.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/fi.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/fr.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/gl.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/hr.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/hu.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/hy.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/id.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/is.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/it.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/ka.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/kk.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/lt.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/lv.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/mk.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/ms.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/nl.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/no.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/pl.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/pt.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/pt_br.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/ro.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/ru.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/sk.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/sl.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/sq.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/sr.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/sv.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/tl.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/tr.txt",
+  "Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/uk.txt",
+]
+precedence = "override"
+SPDX-FileCopyrightText = [
+  "2018 Hermit Dave (FrequencyWords)",
+  "2026 Vitalik Makhnev (Language Switcher adaptations)",
+]
+SPDX-License-Identifier = "CC-BY-SA-4.0"

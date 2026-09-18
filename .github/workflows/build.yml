@@ -1,0 +1,441 @@
+# SPDX-FileCopyrightText: 2026 Vitalik Makhnev
+# SPDX-License-Identifier: MIT AND LicenseRef-Commons-Clause-1.0
+
+name: Xcode - Build, Analyze and Release
+
+on:
+  push:
+    branches: [main]
+    tags:
+      - 'v[0-9]*.[0-9]*.[0-9]*'
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Override these repository variables in another edition without changing this workflow.
+  EDITION_PACKAGE_PATH: ${{ vars.EDITION_PACKAGE_PATH || 'Packages/LanguageSwitcherPlusEdition' }}
+  EXPECTED_APP_SANDBOX: ${{ vars.EXPECTED_APP_SANDBOX || 'YES' }}
+
+jobs:
+  reuse:
+    name: REUSE Compliance
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+
+      - name: Verify licensing metadata
+        uses: fsfe/reuse-action@676e2d560c9a403aa252096d99fcab3e1132b0f5 # v6
+
+  build:
+    name: Universal macOS Build
+    runs-on: macos-26
+    timeout-minutes: 15
+    env:
+      DERIVED_DATA: .build/ci
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Check out source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: Test LanguageSwitcherKit
+        run: swift test --package-path Packages/LanguageSwitcherKit
+
+      - name: Test frequency-data tooling
+        working-directory: Tools/FrequencyData
+        run: python3 -m unittest discover -s . -p 'test_*.py'
+
+      - name: Validate edition package
+        run: |
+          if find "$EDITION_PACKAGE_PATH/Tests" -type f -name '*.swift' -print -quit 2>/dev/null | grep -q .; then
+            swift test --package-path "$EDITION_PACKAGE_PATH"
+          else
+            swift build --package-path "$EDITION_PACKAGE_PATH"
+          fi
+
+      - name: Verify module dependency direction
+        run: |
+          if grep -R -n -E '^import LanguageSwitcher(Application|MacOS|Lexicon)$' Packages/LanguageSwitcherKit/Sources/LanguageSwitcherDomain; then
+            echo "LanguageSwitcherDomain must not depend on higher-level modules." >&2
+            exit 1
+          fi
+          if grep -R -n -E '^import LanguageSwitcher(MacOS|Lexicon)$' Packages/LanguageSwitcherKit/Sources/LanguageSwitcherApplication; then
+            echo "LanguageSwitcherApplication must not depend on concrete adapters." >&2
+            exit 1
+          fi
+          if grep -R -n -E '^import LanguageSwitcher(Plus|Dev)Edition$' Packages/LanguageSwitcherKit/Sources; then
+            echo "LanguageSwitcherKit must not depend on an edition package." >&2
+            exit 1
+          fi
+
+      - name: Build and analyze
+        run: |
+          xcodebuild \
+            -project LanguageSwitcher.xcodeproj \
+            -scheme LanguageSwitcher \
+            -configuration Release \
+            -destination 'generic/platform=macOS' \
+            -derivedDataPath "$DERIVED_DATA" \
+            ARCHS='arm64 x86_64' \
+            ONLY_ACTIVE_ARCH=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            build analyze
+
+      - name: Verify architectures and bundled licenses
+        run: |
+          shopt -s nullglob
+          apps=("$DERIVED_DATA/Build/Products/Release/"*.app)
+          if (( ${#apps[@]} != 1 )); then
+            echo "Expected exactly one built app, found ${#apps[@]}." >&2
+            exit 1
+          fi
+          app="${apps[0]}"
+          executable="$(plutil -extract CFBundleExecutable raw -o - "$app/Contents/Info.plist")"
+          if [[ -z "$executable" ]]; then
+            echo "Built app has no CFBundleExecutable." >&2
+            exit 1
+          fi
+          lexicon_resources="$app/Contents/Resources/LanguageSwitcherKit_LanguageSwitcherLexicon.bundle/Contents/Resources"
+          lipo "$app/Contents/MacOS/$executable" -verify_arch arm64
+          lipo "$app/Contents/MacOS/$executable" -verify_arch x86_64
+          cmp LICENSE "$app/Contents/Resources/LICENSE"
+          cmp THIRD_PARTY_NOTICES.md "$app/Contents/Resources/THIRD_PARTY_NOTICES.md"
+          cmp LICENSES/CC-BY-SA-4.0.txt Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/LICENSE-CC-BY-SA-4.0.txt
+          cmp Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/LICENSE-CC-BY-SA-4.0.txt "$lexicon_resources/LICENSE-CC-BY-SA-4.0.txt"
+          cmp Packages/LanguageSwitcherKit/Sources/LanguageSwitcherLexicon/Resources/ATTRIBUTION.md "$lexicon_resources/ATTRIBUTION.md"
+
+      - name: Verify update network permissions
+        run: |
+          xcodebuild \
+            -project LanguageSwitcher.xcodeproj \
+            -scheme LanguageSwitcher \
+            -configuration Release \
+            -destination 'generic/platform=macOS' \
+            -derivedDataPath "$DERIVED_DATA" \
+            CODE_SIGNING_ALLOWED=NO \
+            -showBuildSettings -json > "$RUNNER_TEMP/languageswitcher-build-settings.json"
+
+          python3 - <<'PY'
+          import json
+          import os
+          import plistlib
+          from pathlib import Path
+
+          settings_file = Path(os.environ['RUNNER_TEMP']) / 'languageswitcher-build-settings.json'
+          targets = json.loads(settings_file.read_text())
+          settings = next(item['buildSettings'] for item in targets if item['target'] == 'LanguageSwitcher')
+          expected_sandbox = os.environ['EXPECTED_APP_SANDBOX']
+          assert expected_sandbox in {'YES', 'NO'}, 'EXPECTED_APP_SANDBOX must be YES or NO'
+          assert settings['PRODUCT_NAME'], 'Product name is required'
+          assert settings['PRODUCT_BUNDLE_IDENTIFIER'], 'Bundle identifier is required'
+          assert settings['ENABLE_APP_SANDBOX'] == expected_sandbox, 'Unexpected App Sandbox setting'
+          assert settings['ENABLE_OUTGOING_NETWORK_CONNECTIONS'] == 'YES', 'Update checks need outgoing networking'
+          assert settings['ENABLE_HARDENED_RUNTIME'] == 'YES', 'Hardened Runtime must remain enabled'
+          entitlements_path = Path(settings['SRCROOT']) / settings['CODE_SIGN_ENTITLEMENTS']
+          entitlements = plistlib.loads(entitlements_path.read_bytes())
+          if expected_sandbox == 'YES':
+              assert entitlements.get('com.apple.security.app-sandbox') is True, 'Missing sandbox entitlement'
+              assert entitlements.get('com.apple.security.network.client') is True, 'Missing update network entitlement'
+          else:
+              assert 'com.apple.security.app-sandbox' not in entitlements, 'Unexpected sandbox entitlement'
+          temporary = [key for key in entitlements if key.startswith('com.apple.security.temporary-exception')]
+          assert not temporary, f'Temporary sandbox exceptions are forbidden: {temporary}'
+          with open(os.environ['GITHUB_ENV'], 'a') as environment:
+              environment.write(f'APP_ENTITLEMENTS_PATH={entitlements_path}\n')
+          print('Update network permissions verified')
+          PY
+
+      - name: Prepare unsigned release app
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          if [[ ! "$GITHUB_REF_NAME" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Release tag must use the vMAJOR.MINOR.PATCH format." >&2
+            exit 1
+          fi
+
+          if ! git merge-base --is-ancestor "$GITHUB_SHA" origin/main; then
+            echo "Release tag must point to a commit from main." >&2
+            exit 1
+          fi
+
+          shopt -s nullglob
+          apps=("$DERIVED_DATA/Build/Products/Release/"*.app)
+          if (( ${#apps[@]} != 1 )); then
+            echo "Expected exactly one built app, found ${#apps[@]}." >&2
+            exit 1
+          fi
+          app="${apps[0]}"
+          version="${GITHUB_REF_NAME#v}"
+          app_version="$(plutil -extract CFBundleShortVersionString raw -o - "$app/Contents/Info.plist")"
+          if [[ "$app_version" != "$version" ]]; then
+            echo "Tag $GITHUB_REF_NAME does not match app version $app_version." >&2
+            exit 1
+          fi
+
+          mkdir -p unsigned
+          archive_stem="${GITHUB_REPOSITORY#*/}"
+          archive="${archive_stem}-${version}-unsigned.zip"
+          ditto -c -k --sequesterRsrc --keepParent "$app" "unsigned/$archive"
+          cp "$APP_ENTITLEMENTS_PATH" unsigned/App.entitlements
+          cp .github/scripts/trust-certificate.swift unsigned/trust-certificate.swift
+          unzip -t "unsigned/$archive"
+
+      - name: Upload unsigned release app
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: unsigned-release-app
+          path: |
+            unsigned/*-unsigned.zip
+            unsigned/App.entitlements
+            unsigned/trust-certificate.swift
+          if-no-files-found: error
+          retention-days: 7
+
+  release:
+    name: Sign and publish GitHub Release
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: [build, reuse]
+    runs-on: macos-26
+    timeout-minutes: 10
+    environment: release-signing
+    permissions:
+      contents: write
+    steps:
+      - name: Download unsigned release app
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: unsigned-release-app
+          path: unsigned
+
+      - name: Extract unsigned release app
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          archive_stem="${GITHUB_REPOSITORY#*/}"
+          mkdir -p release-work
+          unzip -q "unsigned/${archive_stem}-${version}-unsigned.zip" -d release-work
+
+      - name: Sign release app with stable identity
+        env:
+          SIGNING_CERTIFICATE_P12: ${{ secrets.MACOS_SIGNING_CERTIFICATE_P12 }}
+          SIGNING_CERTIFICATE_PASSWORD: ${{ secrets.MACOS_SIGNING_CERTIFICATE_PASSWORD }}
+          # Environment variables pin the identity for this edition's release environment.
+          SIGNING_CERTIFICATE_NAME: ${{ vars.SIGNING_CERTIFICATE_NAME || 'Language Switcher Plus Release Signing' }}
+          SIGNING_CERTIFICATE_SHA1: ${{ vars.SIGNING_CERTIFICATE_SHA1 || '3AF07A5944D14514E7D9D4DA5CE5BCF6047EC86C' }}
+        run: |
+          set -euo pipefail
+
+          if [[ -z "$SIGNING_CERTIFICATE_P12" || -z "$SIGNING_CERTIFICATE_PASSWORD" ]]; then
+            echo "The release-signing environment is missing its certificate secrets." >&2
+            exit 1
+          fi
+
+          shopt -s nullglob
+          apps=(release-work/*.app)
+          if (( ${#apps[@]} != 1 )); then
+            echo "Expected exactly one unsigned app, found ${#apps[@]}." >&2
+            exit 1
+          fi
+          app="${apps[0]}"
+          certificate_path="$RUNNER_TEMP/release-signing.p12"
+          certificate_pem="$RUNNER_TEMP/release-signing.crt"
+          certificate_der="$RUNNER_TEMP/release-signing.der"
+          keychain_path="$RUNNER_TEMP/release-signing.keychain-db"
+          keychain_password="$(openssl rand -base64 36 | tr -d '\n')"
+          trust_tool="$RUNNER_TEMP/languageswitcher-trust-certificate"
+          expected_identity="$(printf '%s' "$SIGNING_CERTIFICATE_SHA1" | tr '[:lower:]' '[:upper:]')"
+          if [[ -z "$SIGNING_CERTIFICATE_NAME" || ! "$expected_identity" =~ ^[A-F0-9]{40}$ ]]; then
+            echo "The release-signing environment has invalid certificate configuration." >&2
+            exit 1
+          fi
+          original_keychains=()
+
+          while IFS= read -r keychain; do
+            keychain="${keychain#"${keychain%%[![:space:]]*}"}"
+            keychain="${keychain%"${keychain##*[![:space:]]}"}"
+            keychain="${keychain#\"}"
+            keychain="${keychain%\"}"
+            [[ -n "$keychain" ]] && original_keychains+=("$keychain")
+          done < <(security list-keychains -d user)
+
+          cleanup() {
+            security list-keychains -d user -s "${original_keychains[@]}" >/dev/null 2>&1 || true
+            security delete-keychain "$keychain_path" >/dev/null 2>&1 || true
+            rm -f "$certificate_path" "$certificate_pem" "$certificate_der" "$trust_tool"
+          }
+          trap cleanup EXIT
+
+          printf '%s' "$SIGNING_CERTIFICATE_P12" | base64 --decode > "$certificate_path"
+          security create-keychain -p "$keychain_password" "$keychain_path"
+          security set-keychain-settings -lut 3600 "$keychain_path"
+          security unlock-keychain -p "$keychain_password" "$keychain_path"
+          security list-keychains -d user -s "$keychain_path" "${original_keychains[@]}"
+          security import "$certificate_path" \
+            -k "$keychain_path" \
+            -P "$SIGNING_CERTIFICATE_PASSWORD" \
+            -T /usr/bin/codesign \
+            >/dev/null
+          security find-certificate \
+            -c "$SIGNING_CERTIFICATE_NAME" \
+            -p \
+            "$keychain_path" \
+            > "$certificate_pem"
+          echo "Trusting the release certificate on this ephemeral runner"
+          openssl x509 -in "$certificate_pem" -outform DER -out "$certificate_der"
+          # The security CLI can wait for UI on hosted macOS 26 runners.
+          # Use Security.framework directly on the ephemeral runner instead.
+          swiftc -suppress-warnings unsigned/trust-certificate.swift -o "$trust_tool"
+          sudo "$trust_tool" "$certificate_der"
+          security set-key-partition-list \
+            -S apple-tool:,apple: \
+            -s \
+            -k "$keychain_password" \
+            "$keychain_path" \
+            >/dev/null
+
+          identity="$(security find-identity -v -p codesigning "$keychain_path" | awk -v certificate_name="$SIGNING_CERTIFICATE_NAME" 'index($0, certificate_name) { print $2; exit }')"
+          if [[ "$identity" != "$expected_identity" ]]; then
+            echo "Unexpected release-signing certificate: ${identity:-not found}." >&2
+            exit 1
+          fi
+
+          bundle_identifier="$(plutil -extract CFBundleIdentifier raw -o - "$app/Contents/Info.plist")"
+          if [[ -z "$bundle_identifier" ]]; then
+            echo "Unsigned app has no CFBundleIdentifier." >&2
+            exit 1
+          fi
+          designated_requirement="designated => certificate leaf = H\"$expected_identity\" and identifier \"$bundle_identifier\""
+          verification_requirement="certificate leaf = H\"$expected_identity\" and identifier \"$bundle_identifier\""
+          codesign \
+            --force \
+            --sign "$identity" \
+            --keychain "$keychain_path" \
+            -r="$designated_requirement" \
+            --options runtime \
+            --timestamp=none \
+            --entitlements "unsigned/App.entitlements" \
+            "$app"
+          codesign \
+            --verify \
+            --deep \
+            --strict \
+            --verbose=2 \
+            -R="$verification_requirement" \
+            "$app"
+
+          signed_entitlements="$RUNNER_TEMP/signed-entitlements.plist"
+          codesign -d --entitlements :- "$app" > "$signed_entitlements" 2>/dev/null
+          python3 - "$signed_entitlements" <<'PY'
+          import os
+          import plistlib
+          import sys
+
+          entitlements = plistlib.loads(open(sys.argv[1], 'rb').read())
+          expected_sandbox = os.environ['EXPECTED_APP_SANDBOX']
+          if expected_sandbox == 'YES':
+              assert entitlements.get('com.apple.security.app-sandbox') is True, 'Signed app is not sandboxed'
+          else:
+              assert 'com.apple.security.app-sandbox' not in entitlements, 'Signed app is unexpectedly sandboxed'
+          temporary = [key for key in entitlements if key.startswith('com.apple.security.temporary-exception')]
+          assert not temporary, f'Signed app has temporary sandbox exceptions: {temporary}'
+          PY
+
+      - name: Package signed release assets
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          shopt -s nullglob
+          apps=(release-work/*.app)
+          if (( ${#apps[@]} != 1 )); then
+            echo "Expected exactly one signed app, found ${#apps[@]}." >&2
+            exit 1
+          fi
+          app="${apps[0]}"
+          archive_stem="${GITHUB_REPOSITORY#*/}"
+          archive="${archive_stem}-${version}-macos-universal.zip"
+          disk_image="${archive_stem}-${version}-macos-universal.dmg"
+          product_name="$(plutil -extract CFBundleDisplayName raw -o - "$app/Contents/Info.plist")"
+          if [[ -z "$product_name" ]]; then
+            echo "Signed app has no CFBundleDisplayName." >&2
+            exit 1
+          fi
+          mkdir -p dist
+          ditto -c -k --sequesterRsrc --keepParent "$app" "dist/$archive"
+          unzip -t "dist/$archive"
+
+          disk_image_root="$(mktemp -d)"
+          cleanup() {
+            rm -rf "$disk_image_root"
+          }
+          trap cleanup EXIT
+          cp -R "$app" "$disk_image_root/"
+          ln -s /Applications "$disk_image_root/Applications"
+          hdiutil create \
+            -volname "$product_name" \
+            -srcfolder "$disk_image_root" \
+            -format UDZO \
+            -ov \
+            "dist/$disk_image"
+          hdiutil verify "dist/$disk_image"
+
+          (cd dist && shasum -a 256 "$archive" "$disk_image" > SHA256SUMS.txt)
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          archive_stem="${GITHUB_REPOSITORY#*/}"
+          archive="${archive_stem}-${version}-macos-universal.zip"
+          disk_image="${archive_stem}-${version}-macos-universal.dmg"
+          shopt -s nullglob
+          apps=(release-work/*.app)
+          if (( ${#apps[@]} != 1 )); then
+            echo "Expected exactly one signed app, found ${#apps[@]}." >&2
+            exit 1
+          fi
+          product_name="$(plutil -extract CFBundleDisplayName raw -o - "${apps[0]}/Contents/Info.plist")"
+          if [[ -z "$product_name" ]]; then
+            echo "Signed app has no CFBundleDisplayName." >&2
+            exit 1
+          fi
+          notes="Download $disk_image (recommended) or $archive for Apple Silicon or Intel Macs running macOS 12 or later. This build is self-signed and is not notarized by Apple; see the README for first-launch and Input Monitoring setup."
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" \
+              "dist/$disk_image#Universal macOS app (.dmg)" \
+              "dist/$archive#Universal macOS app (.zip)" \
+              "dist/SHA256SUMS.txt#SHA-256 checksum" \
+              --clobber
+            gh release edit "$GITHUB_REF_NAME" \
+              --verify-tag \
+              --title "$product_name $version" \
+              --notes "$notes"
+          else
+            gh release create "$GITHUB_REF_NAME" \
+              "dist/$disk_image#Universal macOS app (.dmg)" \
+              "dist/$archive#Universal macOS app (.zip)" \
+              "dist/SHA256SUMS.txt#SHA-256 checksum" \
+              --verify-tag \
+              --generate-notes \
+              --title "$product_name $version" \
+              --notes "$notes"
+          fi
