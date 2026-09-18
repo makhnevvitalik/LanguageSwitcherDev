@@ -4,7 +4,7 @@
 import CoreGraphics
 import Foundation
 
-protocol TextEventReplacing: AnyObject {
+public protocol SelectedTextEventReplacing: AnyObject {
     var isBusy: Bool { get }
 
     @discardableResult
@@ -12,7 +12,9 @@ protocol TextEventReplacing: AnyObject {
         with text: String,
         completion: @escaping (Bool) -> Void
     ) -> Bool
+}
 
+protocol TextEventReplacing: SelectedTextEventReplacing {
     @discardableResult
     func replaceSuffix(
         deleting characterCount: Int,
@@ -21,24 +23,34 @@ protocol TextEventReplacing: AnyObject {
     ) -> Bool
 }
 
-final class CGEventTextReplacer: TextEventReplacing {
+public final class CGEventTextReplacer: SelectedTextEventReplacing {
     private static let compositionCommitKeyCodes: [CGKeyCode] = [49, 123, 124]
 
     private let makeSource: (CGEventSourceStateID) -> CGEventSource?
     private let post: (CGEventTapLocation, CGEvent) -> Void
     private let schedule: (@escaping () -> Void) -> Void
-    private(set) var isBusy = false
+    public private(set) var isBusy = false
+
+    public convenience init() {
+        self.init(
+            makeSource: {
+                CGEventSource(stateID: $0)
+            },
+            post: {
+                $1.post(tap: $0)
+            },
+            schedule: {
+                DispatchQueue.main.async(execute: $0)
+            }
+        )
+    }
 
     init(
         makeSource: @escaping (CGEventSourceStateID) -> CGEventSource? = {
             CGEventSource(stateID: $0)
         },
-        post: @escaping (CGEventTapLocation, CGEvent) -> Void = {
-            $1.post(tap: $0)
-        },
-        schedule: @escaping (@escaping () -> Void) -> Void = {
-            DispatchQueue.main.async(execute: $0)
-        }
+        post: @escaping (CGEventTapLocation, CGEvent) -> Void,
+        schedule: @escaping (@escaping () -> Void) -> Void
     ) {
         self.makeSource = makeSource
         self.post = post
@@ -89,7 +101,7 @@ final class CGEventTextReplacer: TextEventReplacing {
         return post(eventPairs, completion: completion)
     }
 
-    func replaceSelection(
+    public func replaceSelection(
         with text: String,
         completion: @escaping (Bool) -> Void
     ) -> Bool {
@@ -173,3 +185,5 @@ final class CGEventTextReplacer: TextEventReplacing {
         return [keyDown, keyUp]
     }
 }
+
+extension CGEventTextReplacer: TextEventReplacing {}
