@@ -6,11 +6,11 @@ import LanguageSwitcherApplication
 import LanguageSwitcherDomain
 import LanguageSwitcherLexicon
 import LanguageSwitcherMacOS
-import LanguageSwitcherPlusEdition
+import LanguageSwitcherDevEdition
 
 @MainActor
 enum AppCompositionRoot {
-    static let identity = PlusEdition.identity
+    static let identity = DevEdition.identity
 
     static func makeAppController() -> AppController {
         let inputSourceRepository = TISInputSourceRepository()
@@ -23,11 +23,11 @@ enum AppCompositionRoot {
         let spellingChecker = NSSpellCheckerAdapter()
         let trackedTextBuffer = TrackedTextBuffer()
         let inputContextTracker = InputContextTracker()
-        let selectedTextEditor = SelectedTextClipboardEditor(
-            permissionController: accessibilityPermission,
-            trackedTextBuffer: trackedTextBuffer,
-            contextTracker: inputContextTracker,
-            diagnostics: TextActionDebugJournal.handler(component: "selected")
+        let selectedTextEditor = AccessibilitySelectedTextEditor(
+            onReplacement: {
+                trackedTextBuffer.invalidate()
+            },
+            diagnostics: TextActionDebugJournal.handler(component: "accessibility")
         )
         let trackedTextEditor = TrackedTextEventEditor(
             permissionController: accessibilityPermission,

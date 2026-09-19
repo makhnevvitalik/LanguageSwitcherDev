@@ -13,7 +13,7 @@
 		C10000012F00000100000001 /* LanguageSwitcherLexicon in Frameworks */ = {isa = PBXBuildFile; productRef = C10000052F00000100000001 /* LanguageSwitcherLexicon */; };
 		F10000012F00000100000001 /* LanguageSwitcherEdition in Frameworks */ = {isa = PBXBuildFile; productRef = F10000062F00000100000001 /* LanguageSwitcherEdition */; };
 		D10000012F00000100000001 /* LanguageSwitcherLocalization in Frameworks */ = {isa = PBXBuildFile; productRef = D10000062F00000100000001 /* LanguageSwitcherLocalization */; };
-		E10000012F00000100000001 /* LanguageSwitcherPlusEdition in Frameworks */ = {isa = PBXBuildFile; productRef = E10000062F00000100000001 /* LanguageSwitcherPlusEdition */; };
+		E10000012F00000100000001 /* LanguageSwitcherDevEdition in Frameworks */ = {isa = PBXBuildFile; productRef = E10000062F00000100000001 /* LanguageSwitcherDevEdition */; };
 		B10000082F00000100000001 /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000A2F00000100000001 /* AppController.swift */; };
 		B10000092F00000100000001 /* AppCompositionRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000B2F00000100000001 /* AppCompositionRoot.swift */; };
 		D20000012F00000100000001 /* AppLocalization.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20000022F00000100000001 /* AppLocalization.swift */; };
@@ -54,13 +54,13 @@
 		B20000182F00000100000001 /* TextShortcutEditorSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextShortcutEditorSheetController.swift; sourceTree = "<group>"; };
 		B20000192F00000100000001 /* MenuCardLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCardLayout.swift; sourceTree = "<group>"; };
 		B200001A2F00000100000001 /* ActiveInputsMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveInputsMenuController.swift; sourceTree = "<group>"; };
-		4C79BECA2A553F0D006A793C /* Language Switcher Plus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Language Switcher Plus.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C79BECA2A553F0D006A793C /* Language Switcher Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Language Switcher Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C79BECD2A553F0D006A793C /* LanguageSwitcherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSwitcherApp.swift; sourceTree = "<group>"; };
 		4C79BECF2A553F0D006A793C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D30000012F00000100000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4C79BED12A553F0E006A793C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C79BED42A553F0E006A793C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		4C79BED62A553F0E006A793C /* LanguageSwitcherPlus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LanguageSwitcherPlus.entitlements; sourceTree = "<group>"; };
+		4C79BED62A553F0E006A793C /* LanguageSwitcherDev.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LanguageSwitcherDev.entitlements; sourceTree = "<group>"; };
 		A1B2C3D42D0AF0010000000A /* AboutWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutWindowController.swift; sourceTree = "<group>"; };
 		A1B2C3D42D0AF00100000017 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		A1B2C3D42D0AF00100000019 /* THIRD_PARTY_NOTICES.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = THIRD_PARTY_NOTICES.md; sourceTree = "<group>"; };
@@ -77,7 +77,7 @@
 				F10000012F00000100000001 /* LanguageSwitcherEdition in Frameworks */,
 				D10000012F00000100000001 /* LanguageSwitcherLocalization in Frameworks */,
 				B10000032F00000100000001 /* LanguageSwitcherMacOS in Frameworks */,
-				E10000012F00000100000001 /* LanguageSwitcherPlusEdition in Frameworks */,
+				E10000012F00000100000001 /* LanguageSwitcherDevEdition in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,7 +97,7 @@
 		4C79BECB2A553F0D006A793C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4C79BECA2A553F0D006A793C /* Language Switcher Plus.app */,
+				4C79BECA2A553F0D006A793C /* Language Switcher Dev.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -114,7 +114,7 @@
 				4C79BECF2A553F0D006A793C /* AppDelegate.swift */,
 				D30000012F00000100000001 /* Info.plist */,
 				4C79BED12A553F0E006A793C /* Assets.xcassets */,
-				4C79BED62A553F0E006A793C /* LanguageSwitcherPlus.entitlements */,
+				4C79BED62A553F0E006A793C /* LanguageSwitcherDev.entitlements */,
 				4C79BED32A553F0E006A793C /* Preview Content */,
 			);
 			path = App;
@@ -202,10 +202,10 @@
 				F10000062F00000100000001 /* LanguageSwitcherEdition */,
 				D10000062F00000100000001 /* LanguageSwitcherLocalization */,
 				B10000072F00000100000001 /* LanguageSwitcherMacOS */,
-				E10000062F00000100000001 /* LanguageSwitcherPlusEdition */,
+				E10000062F00000100000001 /* LanguageSwitcherDevEdition */,
 			);
 			productName = LanguageSwitcher;
-			productReference = 4C79BECA2A553F0D006A793C /* Language Switcher Plus.app */;
+			productReference = 4C79BECA2A553F0D006A793C /* Language Switcher Dev.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -235,7 +235,7 @@
 			mainGroup = 4C79BEC12A553F0D006A793C;
 			packageReferences = (
 				B10000042F00000100000001 /* XCLocalSwiftPackageReference "Packages/LanguageSwitcherKit" */,
-				E10000052F00000100000001 /* XCLocalSwiftPackageReference "Packages/LanguageSwitcherPlusEdition" */,
+				E10000052F00000100000001 /* XCLocalSwiftPackageReference "Packages/LanguageSwitcherDevEdition" */,
 			);
 			productRefGroup = 4C79BECB2A553F0D006A793C /* Products */;
 			projectDirPath = "";
@@ -407,14 +407,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = App/LanguageSwitcherPlus.entitlements;
+				CODE_SIGN_ENTITLEMENTS = App/LanguageSwitcherDev.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"App/Preview Content\"";
 				DEVELOPMENT_TEAM = P66575H26Z;
-				ENABLE_APP_SANDBOX = YES;
+				ENABLE_APP_SANDBOX = NO;
 				ENABLE_DEBUG_DYLIB = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
@@ -436,8 +436,8 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12;
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.makhnevvitalik.LanguageSwitcherPlus;
-				PRODUCT_NAME = "Language Switcher Plus";
+				PRODUCT_BUNDLE_IDENTIFIER = com.makhnevvitalik.LanguageSwitcherDev;
+				PRODUCT_NAME = "Language Switcher Dev";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -448,14 +448,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = App/LanguageSwitcherPlus.entitlements;
+				CODE_SIGN_ENTITLEMENTS = App/LanguageSwitcherDev.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"App/Preview Content\"";
 				DEVELOPMENT_TEAM = P66575H26Z;
-				ENABLE_APP_SANDBOX = YES;
+				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
@@ -476,8 +476,8 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12;
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.makhnevvitalik.LanguageSwitcherPlus;
-				PRODUCT_NAME = "Language Switcher Plus";
+				PRODUCT_BUNDLE_IDENTIFIER = com.makhnevvitalik.LanguageSwitcherDev;
+				PRODUCT_NAME = "Language Switcher Dev";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -511,9 +511,9 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/LanguageSwitcherKit;
 		};
-		E10000052F00000100000001 /* XCLocalSwiftPackageReference "Packages/LanguageSwitcherPlusEdition" */ = {
+		E10000052F00000100000001 /* XCLocalSwiftPackageReference "Packages/LanguageSwitcherDevEdition" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = Packages/LanguageSwitcherPlusEdition;
+			relativePath = Packages/LanguageSwitcherDevEdition;
 		};
 /* End XCLocalSwiftPackageReference section */
 
@@ -548,10 +548,10 @@
 			package = B10000042F00000100000001 /* XCLocalSwiftPackageReference "Packages/LanguageSwitcherKit" */;
 			productName = LanguageSwitcherLocalization;
 		};
-		E10000062F00000100000001 /* LanguageSwitcherPlusEdition */ = {
+		E10000062F00000100000001 /* LanguageSwitcherDevEdition */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E10000052F00000100000001 /* XCLocalSwiftPackageReference "Packages/LanguageSwitcherPlusEdition" */;
-			productName = LanguageSwitcherPlusEdition;
+			package = E10000052F00000100000001 /* XCLocalSwiftPackageReference "Packages/LanguageSwitcherDevEdition" */;
+			productName = LanguageSwitcherDevEdition;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

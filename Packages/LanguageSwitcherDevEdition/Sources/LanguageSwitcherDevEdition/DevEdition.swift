@@ -4,22 +4,22 @@
 import Foundation
 import LanguageSwitcherEdition
 
-public enum PlusEdition {
+public enum DevEdition {
     public static let identity = AppIdentity(
         brandName: "Language Switcher",
-        editionName: "Plus",
-        productName: "Language Switcher Plus",
-        bundleIdentifier: "com.makhnevvitalik.LanguageSwitcherPlus",
+        editionName: "Developer Edition",
+        productName: "Language Switcher Dev",
+        bundleIdentifier: "com.makhnevvitalik.LanguageSwitcherDev",
         repositoryURL: URL(
-            string: "https://github.com/makhnevvitalik/LanguageSwitcherPlus"
+            string: "https://github.com/makhnevvitalik/LanguageSwitcherDev"
         )!,
         latestReleaseURL: URL(
             string: "https://github.com/makhnevvitalik/"
-                + "LanguageSwitcherPlus/releases/latest"
+                + "LanguageSwitcherDev/releases/latest"
         )!,
         latestReleaseAPIURL: URL(
             string: "https://api.github.com/repos/"
-                + "makhnevvitalik/LanguageSwitcherPlus/releases/latest"
+                + "makhnevvitalik/LanguageSwitcherDev/releases/latest"
         )!
     )
 }
