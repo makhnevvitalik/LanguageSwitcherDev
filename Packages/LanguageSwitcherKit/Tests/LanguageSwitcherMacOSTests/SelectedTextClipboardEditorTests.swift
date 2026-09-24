@@ -103,12 +103,12 @@ final class SelectedTextClipboardEditorTests: XCTestCase {
         XCTAssertTrue(environment.eventReplacer.selectionTexts.isEmpty)
     }
 
-    func testRejectsMultipleClipboardChanges() {
+    func testAcceptsTwoClipboardWritesFromOneCopyCommand() {
         let environment = Environment(copyBehavior: .copied("selected"))
         environment.sender.afterSend = { command in
             guard command == .copy else { return }
             environment.pasteboard.performCopy()
-            environment.pasteboard.externalChange(string: "external")
+            environment.pasteboard.performCopy()
         }
         var result: TextReplacementResult?
 
@@ -118,10 +118,10 @@ final class SelectedTextClipboardEditorTests: XCTestCase {
         )
         environment.scheduler.runUntilIdle()
 
-        XCTAssertEqual(result, .clipboardChanged)
-        XCTAssertEqual(environment.pasteboard.string, "external")
-        XCTAssertFalse(environment.pasteboard.didRestore)
-        XCTAssertTrue(environment.eventReplacer.selectionTexts.isEmpty)
+        XCTAssertEqual(result, .replaced(TextTransformation(text: "SELECTED")))
+        XCTAssertEqual(environment.pasteboard.string, "original")
+        XCTAssertTrue(environment.pasteboard.didRestore)
+        XCTAssertEqual(environment.eventReplacer.selectionTexts, ["SELECTED"])
     }
 
     func testContextChangeBeforeReplacementAbortsOperation() {

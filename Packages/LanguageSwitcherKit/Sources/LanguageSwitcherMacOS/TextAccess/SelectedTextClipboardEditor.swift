@@ -180,10 +180,6 @@ public final class SelectedTextClipboardEditor: SelectedTextReplacing {
                 "copy.changed baseline=\(baselineChangeCount) current=\(currentChangeCount)",
                 operation: operation
             )
-            guard currentChangeCount == baselineChangeCount + 1 else {
-                finish(operation, result: .clipboardChanged)
-                return
-            }
             scheduler.schedule(after: copySettleDelay) { [weak self, weak operation] in
                 guard let self, let operation else { return }
                 self.acceptStableCopy(operation, candidateChangeCount: currentChangeCount)
