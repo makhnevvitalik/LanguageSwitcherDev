@@ -27,7 +27,7 @@ enum MenuCardLayout {
     static func sectionHeading(title: String, symbolName: String) -> NSView {
         let imageView = NSImageView()
         imageView.image = NSImage(systemSymbolName: symbolName, accessibilityDescription: nil)
-        imageView.symbolConfiguration = NSImage.SymbolConfiguration(pointSize: 12, weight: .medium)
+        imageView.symbolConfiguration = NSImage.SymbolConfiguration(pointSize: AppStyle.Font.sectionHeading.pointSize, weight: .medium)
         imageView.contentTintColor = .secondaryLabelColor
         imageView.imageScaling = .scaleProportionallyDown
         imageView.alignment = .center
@@ -60,7 +60,7 @@ enum MenuCardLayout {
         labels.spacing = 1
         if let detail {
             let detailLabel = NSTextField(wrappingLabelWithString: detail)
-            detailLabel.font = AppStyle.Font.detail
+            detailLabel.font = AppStyle.Font.secondary
             detailLabel.textColor = .secondaryLabelColor
             detailLabel.maximumNumberOfLines = 2
             labels.addArrangedSubview(detailLabel)
@@ -121,7 +121,7 @@ enum MenuCardLayout {
         button.attributedTitle = NSAttributedString(
             string: title,
             attributes: [
-                .font: AppStyle.Font.emphasizedCaption,
+                .font: AppStyle.Font.compactControl,
                 .foregroundColor: isActive ? NSColor.white : NSColor.labelColor
             ]
         )
