@@ -124,10 +124,11 @@ final class TextToolsMenuController: NSObject {
             target: self,
             action: #selector(showShortcutSettings)
         )
+        configureButton.controlSize = .small
         configureButton.bezelStyle = .inline
         configureButton.isBordered = false
         configureButton.contentTintColor = .linkColor
-        configureButton.font = AppStyle.Font.body
+        configureButton.font = AppStyle.Font.control
         let shortcutRow = MenuCardLayout.row(
             title: localized("Shortcuts"),
             detail: nil,
