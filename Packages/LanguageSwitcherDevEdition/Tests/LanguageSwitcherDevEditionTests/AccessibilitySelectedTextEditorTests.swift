@@ -12,10 +12,6 @@ final class AccessibilitySelectedTextEditorTests: XCTestCase {
         XCTAssertEqual(DevEdition.identity.editionName, "Developer Edition")
         XCTAssertEqual(DevEdition.identity.productName, "Language Switcher Dev")
         XCTAssertEqual(
-            DevEdition.identity.bundleIdentifier,
-            "com.makhnevvitalik.LanguageSwitcherDev"
-        )
-        XCTAssertEqual(
             DevEdition.identity.repositoryURL.absoluteString,
             "https://github.com/makhnevvitalik/LanguageSwitcherDev"
         )
