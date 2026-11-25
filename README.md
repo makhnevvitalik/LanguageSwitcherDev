@@ -5,7 +5,7 @@
 
 Language Switcher Dev lets you switch input languages with a quick Fn/Globe or Command tap and fix text typed in the wrong layout or case with customizable global shortcuts.
 
-For most users, [Language Switcher Plus](https://github.com/makhnevvitalik/LanguageSwitcherPlus) is recommended. Dev is intended for cases where selected-text actions do not work in professional code editors such as JetBrains IDEs or Visual Studio Code. [Compare Plus and Dev](https://github.com/makhnevvitalik/LanguageSwitcherPlus#plus-or-dev).
+For most users, [Language Switcher Plus](https://github.com/makhnevvitalik/LanguageSwitcherPlus) is recommended. Dev runs without App Sandbox and uses macOS Accessibility to read selected text directly. Use Dev if selected-text actions in Plus do not work in editors such as JetBrains IDEs or Visual Studio Code. [Compare Plus and Dev](https://github.com/makhnevvitalik/LanguageSwitcherPlus#plus-or-dev).
 
 [Download the latest release](https://github.com/makhnevvitalik/LanguageSwitcherDev/releases/latest)
 
@@ -32,7 +32,7 @@ For most users, [Language Switcher Plus](https://github.com/makhnevvitalik/Langu
 - Choose which input sources participate in switching and text conversion.
 - Convert text typed in the wrong keyboard layout.
 - Change text to Uppercase, Lowercase, Capitalize Words, or Invert Case.
-- Assign flexible global shortcuts using modifier keys and F1–F20 with Once, Twice, and Hold + twice press patterns.
+- Assign global shortcuts using modifiers, F1–F20, letters, and digits with Once, Twice, and Hold + twice press patterns.
 - Apply shortcut actions to recently typed text, the last word, or selected text.
 
 ### Install and start
@@ -49,7 +49,7 @@ Language Switcher Dev requires macOS 14 or later.
 
 - Use the gear menu to change the interface language, enable **Open at Login**, or toggle **Show in Menu Bar**.
 - Closing the settings window leaves the app running. With **Open at Login** enabled, it starts in the background. If the menu bar icon is hidden or there is no room for it, open the app from **Applications** or Spotlight to return to settings.
-- Dev checks GitHub in the background at launch. When a newer version is available, the **Update available** link in the menu bar panel and settings window opens its release page. To check manually, choose **Settings → About… → Check for Updates**.
+- Dev checks GitHub in the background at launch and every 24 hours while running. A blue dot on the menu bar icon signals an update. The orange Input Monitoring warning takes priority. The **Update available** link in the panel and settings window opens the release page. To check manually, choose **Settings → About… → Check for Updates**.
 - The release also includes a ZIP archive if you prefer to unzip the app manually and move it to **Applications**.
 - macOS may block the first launch because the app is distributed independently rather than through the App Store. If this happens, try opening the app once, then go to **System Settings → Privacy & Security**, find the security message for Language Switcher Dev, and select **Open Anyway**.
 - When using Fn/Globe, set its macOS action to **Do Nothing** under Keyboard settings so the system action does not conflict with Language Switcher Dev.
@@ -59,7 +59,7 @@ Language Switcher Dev requires macOS 14 or later.
 | Permission | Used for |
 | --- | --- |
 | **Input Monitoring** | Language switching and global shortcuts |
-| **Accessibility** | Reading and replacing text for Text actions |
+| **Accessibility** | Intercepting assigned letter and digit shortcuts, reading and replacing text |
 
 If Input Monitoring is paused, a dot appears on the menu bar icon and a warning appears in the settings. Use **Resume…** to review your next step. If macOS asks, choose **Quit & Reopen**, then start the action again.
 
@@ -71,13 +71,15 @@ Quick example: assign a shortcut to **Convert Layout**, type text using the wron
 
 Text action shortcuts run **Convert Layout**, **Uppercase**, **Lowercase**, **Capitalize Words**, or **Invert Case** without opening the menu.
 
-Open **Text actions → Shortcuts → Configure…** to assign shortcuts. Supported keys are Shift, Control, Option, Command, and F1–F20. No text-action shortcuts are assigned by default.
+Open **Text actions → Shortcuts → Configure…** to assign shortcuts. Use Shift, Control, Option, Command, or F1–F20. Letters and digits require Control, Option, or Command, with optional Shift. Their labels follow the physical positions on a US keyboard. No text-action shortcuts are assigned by default.
+
+With Accessibility enabled, Language Switcher intercepts the letter or digit in an assigned combination from the first press, including for double presses. This keeps the active app from running its own command on the same keys and lets Language Switcher act on recently typed text. The editor blocks shortcuts reported as enabled by macOS. It warns about other standard macOS shortcuts, common app commands, and Option combinations that type a character or start composing one in a keyboard layout enabled in macOS. The warning shows the current layout if affected, or another enabled layout. To proceed, choose **Assign Anyway**. To use different keys, record another combination.
 
 #### Press patterns
 
 - **Once** — press and release the shortcut once. Example: press and release `⇧⌥`.
 - **Twice** — press and release the entire shortcut twice. Example: press `⇧⌥`, release it, then press and release `⇧⌥` again.
-- **Hold + twice** — hold one or more modifier keys and tap another modifier or a function key (F1–F20) twice. For example, hold `⇧` and tap `⌥` twice, or hold `⇧⌥` and tap `F2` twice.
+- **Hold + twice** — hold one or more modifiers and tap another modifier, a function key, a letter, or a digit twice. For example, hold `⇧` and tap `⌥` twice, or hold `⌃` and tap `K` twice.
 
 Which key you hold matters: holding `⇧` and tapping `⌥` is different from holding `⌥` and tapping `⇧`.
 
@@ -91,7 +93,7 @@ Once and Twice may use the same keys for different actions. In that case, the On
 - **Last word** — only the most recently typed word.
 - **Selection** — selected text.
 
-**Selected text takes priority in every mode.** If text is selected, the action applies to the selection regardless of **Apply to**. Menu actions also always apply to selected text.
+In **Typed text** and **Last word**, use the mouse or standard keyboard shortcuts to select text for the action. With no selection, the shortcut acts on all tracked typed text or the last tracked word, depending on the mode. If the active app creates a selection itself, such as for autocomplete, the shortcut may still act on typed text. Menu actions always target the selection.
 
 ### License
 
@@ -103,7 +105,7 @@ Bundled FrequencyWords data is licensed separately under CC BY-SA 4.0. See [THIR
 
 Language Switcher Dev позволяет быстро переключать языки ввода нажатием Fn/Globe или Command и исправлять текст, набранный в неверной раскладке или регистре, с помощью настраиваемых глобальных сочетаний клавиш.
 
-Для большинства пользователей рекомендуется [Language Switcher Plus](https://github.com/makhnevvitalik/LanguageSwitcherPlus). Dev предназначена для случаев, когда действия с выделенным текстом не работают в профессиональных редакторах кода, например в IDE от JetBrains или Visual Studio Code. [Сравните Plus и Dev](https://github.com/makhnevvitalik/LanguageSwitcherPlus#plus-или-dev).
+Для большинства пользователей рекомендуется [Language Switcher Plus](https://github.com/makhnevvitalik/LanguageSwitcherPlus). Dev работает без App Sandbox и читает выделенный текст напрямую через «Универсальный доступ» macOS. Используйте Dev, если в Plus не работают действия с выделением в IDE от JetBrains, Visual Studio Code или другом редакторе. [Сравните Plus и Dev](https://github.com/makhnevvitalik/LanguageSwitcherPlus#plus-или-dev).
 
 [Скачать последнюю версию](https://github.com/makhnevvitalik/LanguageSwitcherDev/releases/latest)
 
@@ -113,7 +115,7 @@ Language Switcher Dev позволяет быстро переключать я�
 - Выбор источников ввода, участвующих в переключении и преобразовании текста.
 - Исправление текста, набранного в неверной раскладке.
 - Преобразование текста в верхний и нижний регистр, написание слов с прописной буквы или инвертирование регистра.
-- Настраиваемые глобальные сочетания из клавиш-модификаторов и F1–F20 с вариантами «Один раз», «Дважды» и «Удержание + двойное нажатие».
+- Настраиваемые глобальные сочетания из модификаторов, F1–F20, букв и цифр с вариантами «Один раз», «Дважды» и «Удержание + двойное нажатие».
 - Применение действий к недавно набранному тексту, последнему слову или выделенному тексту.
 
 ### Установка и запуск
@@ -130,7 +132,7 @@ Language Switcher Dev требует macOS 14 или новее.
 
 - В меню шестерёнки можно выбрать **Язык**, включить **Запускать при входе** и управлять настройкой **Показывать в строке меню**.
 - После закрытия окна настроек приложение продолжает работать. Если включено открытие при входе, приложение запускается в фоне. Если значок скрыт или для него нет места, откройте приложение из папки **«Программы»** или через Spotlight, чтобы вернуться к настройкам.
-- При запуске Dev проверяет GitHub в фоне. Если вышла новая версия, ссылка **Доступно обновление** в панели строки меню и окне настроек откроет страницу релиза. Для ручной проверки выберите **Настройки → О приложении… → Проверить обновления**.
+- Dev проверяет GitHub в фоне при запуске и каждые 24 часа, пока приложение запущено. Синяя точка на значке в строке меню сообщает о новой версии. При приостановке мониторинга ввода оранжевая точка имеет приоритет. Ссылка **Доступно обновление** в панели и окне настроек открывает страницу релиза. Для ручной проверки выберите **Настройки → О приложении… → Проверить обновления**.
 - В релиз также входит ZIP-архив: его можно распаковать вручную и переместить приложение в **Applications**.
 - При первом запуске macOS может заблокировать приложение, поскольку оно распространяется самостоятельно, а не через App Store. В таком случае попробуйте один раз открыть приложение, затем перейдите в **Системные настройки → Конфиденциальность и безопасность**, найдите сообщение о Language Switcher Dev и выберите **Всё равно открыть**.
 - При использовании Fn/Globe установите для неё действие **Ничего не делать** в настройках клавиатуры macOS, чтобы системное действие не конфликтовало с Language Switcher Dev.
@@ -140,7 +142,7 @@ Language Switcher Dev требует macOS 14 или новее.
 | Разрешение | Для чего используется |
 | --- | --- |
 | **Мониторинг ввода** | Переключение языка и глобальные сочетания |
-| **Универсальный доступ** | Чтение и замена текста для действий с текстом |
+| **Универсальный доступ** | Перехват назначенных сочетаний с буквами и цифрами, чтение и замена текста |
 
 Если мониторинг ввода приостановлен, на значке в строке меню появляется точка, а в настройках — предупреждение. Нажмите **Возобновить…**, чтобы узнать, что делать дальше. Если macOS предложит действие **Завершить и открыть снова**, выберите его, а затем повторите нужное действие.
 
@@ -150,15 +152,17 @@ Language Switcher Dev требует macOS 14 или новее.
 
 #### Настройка сочетаний
 
-Сочетания позволяют запускать действия **Сменить раскладку**, **Верхний регистр**, **Нижний регистр**, **С прописной буквы** и **Инвертировать регистр**, не открывая меню.
+Сочетания позволяют запускать действия **Сменить раскладку**, **Верхний регистр**, **Нижний регистр**, **Каждое слово с прописной** и **Инвертировать регистр**, не открывая меню.
 
-Откройте **Действия с текстом → Сочетания клавиш → Настроить…**, чтобы назначить сочетания. Поддерживаются Shift, Control, Option, Command и F1–F20. По умолчанию сочетания для действий с текстом не назначены.
+Откройте **Действия с текстом → Сочетания клавиш → Настроить…**, чтобы назначить сочетания. Поддерживаются Shift, Control, Option, Command и F1–F20. Для букв и цифр нужен Control, Option или Command. К ним можно добавить Shift. Подписи букв и цифр соответствуют физическим позициям на американской клавиатуре. По умолчанию сочетания для действий с текстом не назначены.
+
+С разрешением «Универсальный доступ» Language Switcher перехватывает букву или цифру в назначенном сочетании с первого нажатия, в том числе для двойного жеста. Благодаря этому активное приложение не выполняет свою команду на этих клавишах, а Language Switcher может обработать недавно набранный текст. Редактор блокирует сочетания, которые macOS сообщает как включённые. Он предупреждает об остальных стандартных сочетаниях macOS, распространённых командах приложений и сочетаниях с Option, которые вводят символ или начинают ввод составного символа в одной из раскладок, включённых в macOS. Предупреждение показывает текущую раскладку, если сочетание влияет на ввод в ней, или другую включённую раскладку. Чтобы продолжить, нажмите **Назначить всё равно**. Чтобы выбрать другие клавиши, запишите новое сочетание.
 
 #### Варианты нажатия
 
 - **Один раз** — один раз нажмите и отпустите сочетание. Пример: нажмите и отпустите `⇧⌥`.
 - **Дважды** — дважды полностью нажмите и отпустите сочетание. Пример: нажмите `⇧⌥`, отпустите, затем снова нажмите и отпустите `⇧⌥`.
-- **Удержание + двойное нажатие** — удерживайте один или несколько модификаторов и дважды нажмите другой модификатор или функциональную клавишу (F1–F20). Например, удерживайте `⇧` и дважды нажмите `⌥` или удерживайте `⇧⌥` и дважды нажмите `F2`.
+- **Удержание + двойное нажатие** — удерживайте один или несколько модификаторов и дважды нажмите другой модификатор, функциональную клавишу, букву или цифру. Например, удерживайте `⇧` и дважды нажмите `⌥` или удерживайте `⌃` и дважды нажмите `K`.
 
 Важно, какую клавишу вы удерживаете: удерживать `⇧` и нажимать `⌥` — не то же самое, что удерживать `⌥` и нажимать `⇧`.
 
@@ -172,7 +176,7 @@ Language Switcher Dev требует macOS 14 или новее.
 - **Последнее слово** — только последнее введённое слово.
 - **Выделение** — выделенный текст.
 
-**Выделенный текст имеет приоритет во всех режимах.** Если что-то выделено, действие применяется к выделению независимо от настройки **Обрабатывать**. Действия из меню также всегда применяются к выделенному тексту.
+В режимах **Набранное** и **Последнее слово** сочетание обрабатывает текст, выделенный мышью или стандартными сочетаниями клавиш. Без выделения оно обрабатывает весь отслеживаемый набранный текст или последнее отслеживаемое слово в зависимости от режима. Когда приложение само выделяет текст, например при автодополнении, сочетание может обработать набранный текст. Действия из меню всегда применяются к выделению.
 
 ### Лицензия
 

@@ -13,17 +13,18 @@ import ServiceManagement
 @MainActor
 final class ApplicationCoordinator: NSObject {
     private static let launchAtLoginPromptShownKey = "launchAtLogin.promptShown"
-    private static let textShortcutPermissionSetupPendingKey =
-        "textShortcutPermissions.setupPending"
 
     private let identity: AppIdentity
     private let appController: AppController
     private let languageStore: AppLanguageStore
     private lazy var updateChecker = GitHubReleaseChecker(
         apiURL: identity.latestReleaseAPIURL,
-        releaseURL: identity.latestReleaseURL
+        releaseURL: identity.latestReleaseURL,
+        userAgent: identity.productName
     )
-    private let inputMonitoringPermission = LanguageSwitcherMacOS.InputMonitoringPermissionController()
+    private var inputMonitoringPermission: InputMonitoringPermissionController {
+        appController.inputMonitoringPermission
+    }
     private var statusMenuController: StatusMenuController?
     private var shortcutSettingsWindowController: TextShortcutSettingsWindowController?
     private enum Warning: Hashable {
@@ -34,7 +35,6 @@ final class ApplicationCoordinator: NSObject {
     private let warnings = ModelessAlertPresenter<Warning>()
     private var displayedInputMonitoringAction: InputMonitoringRecoveryAction?
     private var isRestarting = false
-    private var isRecordingShortcut = false
     private var hasStarted = false
     private var isStartingInBackground = false
     private var hasRequestedInputMonitoring = false
@@ -77,7 +77,7 @@ final class ApplicationCoordinator: NSObject {
         validateFunctionGlobeSetting()
         startKeyboardMonitoringIfNeeded()
         hasStarted = true
-        checkForUpdates()
+        updateChecker.startAutomaticChecks()
         guard !inBackground else { return }
 
         showSettings()
@@ -96,7 +96,7 @@ final class ApplicationCoordinator: NSObject {
         guard hasStarted,
               !isStartingInBackground,
               !isRestarting,
-              !isRecordingShortcut else {
+              !appController.isRecordingTextShortcut else {
             return
         }
         startKeyboardMonitoringIfNeeded()
@@ -106,21 +106,8 @@ final class ApplicationCoordinator: NSObject {
     }
 
     func stop() {
+        updateChecker.cancel()
         appController.stopKeyboardMonitoring()
-    }
-
-    private func checkForUpdates(completion: ((ReleaseUpdateResult) -> Void)? = nil) {
-        updateChecker.check(joinInProgress: true) { [weak self] result in
-            switch result {
-            case let .updateAvailable(_, url):
-                self?.statusMenuController?.setAvailableReleaseURL(url)
-            case .upToDate:
-                self?.statusMenuController?.setAvailableReleaseURL(nil)
-            case .failure:
-                break
-            }
-            completion?(result)
-        }
     }
 
     private func configureMenu() {
@@ -134,12 +121,11 @@ final class ApplicationCoordinator: NSObject {
             validateShortcut: { [weak appController] shortcut, action in
                 appController?.validateTextShortcut(shortcut, for: action) ?? .invalid
             },
-            setShortcut: { [weak self] shortcut, action in
-                self?.setTextShortcut(shortcut, for: action) ?? .invalid
+            setShortcut: { [weak appController] shortcut, action, reviewedConflict in
+                appController?.setTextShortcut(shortcut, for: action, reviewedConflict: reviewedConflict) ?? .invalid
             },
             onRecordingChanged: { [weak self] isRecording in
                 guard let self else { return }
-                self.isRecordingShortcut = isRecording
                 self.appController.setTextShortcutRecording(isRecording)
                 if !isRecording {
                     self.continuePendingTextShortcutPermissionSetup()
@@ -164,8 +150,10 @@ final class ApplicationCoordinator: NSObject {
             setScope: { [weak appController] scope in
                 appController?.textConversionScope = scope
             },
-            configureShortcuts: { [weak shortcutWindow] in
-                shortcutWindow?.showWindow()
+            configureShortcuts: { [weak self, weak shortcutWindow] trigger in
+                guard let shortcutWindow else { return }
+                let returnToSource = self?.statusMenuController?.leaveForShortcutSettings(from: trigger)
+                shortcutWindow.showWindow(returningTo: returnToSource)
             },
             currentMultiPressInterval: { [weak appController] in
                 appController?.maximumTextShortcutMultiPressInterval
@@ -234,19 +222,16 @@ final class ApplicationCoordinator: NSObject {
             },
             textToolsController: textTools,
             keyboardSwitchingController: keyboardSwitching,
-            aboutWindowController: AboutWindowController(identity: identity) { [weak self] completion in
-                self?.checkForUpdates(completion: completion)
-            },
-            currentState: { [weak self, weak appController] in
-                let isRecordingShortcut = self?.isRecordingShortcut ?? false
-                return StatusMenuState(
-                    isInputMonitoringPaused: !isRecordingShortcut
-                        && (appController?.isInputMonitoringPaused ?? false),
+            aboutWindowController: AboutWindowController(identity: identity, updates: updateChecker),
+            updates: updateChecker,
+            currentState: { [weak self] in
+                StatusMenuState(
+                    monitoringWarning: self?.keyboardMonitoringWarning,
                     isLaunchAtLoginEnabled: Self.isLaunchAtLoginEnabled
                 )
             },
             onResumeKeyboardSwitching: { [weak self] in
-                self?.resumeKeyboardSwitching()
+                self?.recoverKeyboardMonitoring()
             },
             onLaunchAtLoginChange: { [weak self] enabled in
                 self?.setLaunchAtLoginEnabled(enabled)
@@ -257,35 +242,34 @@ final class ApplicationCoordinator: NSObject {
         )
     }
 
-    private func setTextShortcut(
-        _ shortcut: TextActionShortcut?,
-        for action: TextAction
-    ) -> ConfigureTextActionShortcutResult {
-        let setupWasPending = isTextShortcutPermissionSetupPending
-        if shortcut != nil,
-           TextShortcutPermissionSetup.nextStep(
-               inputMonitoringAllowed: inputMonitoringPermission.isAllowed,
-               accessibilityAllowed: appController.isAccessibilityAllowed
-           ) != .complete {
-            isTextShortcutPermissionSetupPending = true
-        }
-
-        let result = appController.setTextShortcut(shortcut, for: action)
-        guard result == .updated else {
-            isTextShortcutPermissionSetupPending = setupWasPending
-            return result
-        }
-        if shortcut == nil, !appController.hasConfiguredTextShortcuts {
-            isTextShortcutPermissionSetupPending = false
-        }
-        return result
-    }
-
     private func validateFunctionGlobeSetting() {
         guard appController.isModifierShortcutEnabled(.functionGlobe) else { return }
         let result = appController.setModifierShortcut(.functionGlobe, enabled: true)
         if case let .unavailable(issue) = result, !isStartingInBackground {
             showFunctionGlobeUnavailableWarning(issue: issue)
+        }
+    }
+
+    private var keyboardMonitoringWarning: KeyboardMonitoringWarning? {
+        guard !appController.isRecordingTextShortcut else { return nil }
+        if appController.isInputMonitoringPaused { return .inputMonitoringPaused }
+        switch appController.textShortcutInterception {
+        case .inactive, .active: return nil
+        case .needsAccessibility: return .textShortcutsNeedAccessibility
+        case .unavailable: return .textShortcutInterceptionUnavailable
+        }
+    }
+
+    private func recoverKeyboardMonitoring() {
+        switch keyboardMonitoringWarning {
+        case .inputMonitoringPaused:
+            resumeKeyboardSwitching()
+        case .textShortcutsNeedAccessibility:
+            appController.openAccessibilitySettings()
+        case .textShortcutInterceptionUnavailable:
+            appController.startKeyboardMonitoring()
+        case nil:
+            break
         }
     }
 
@@ -321,7 +305,7 @@ final class ApplicationCoordinator: NSObject {
 
     private func showInputMonitoringRecovery(userInitiated: Bool = false) {
         DispatchQueue.main.async { [weak self] in
-            guard let self, !self.isRestarting, !self.isRecordingShortcut,
+            guard let self, !self.isRestarting, !self.appController.isRecordingTextShortcut,
                   self.appController.isInputMonitoringPaused else { return }
 
             let action = self.inputMonitoringRecoveryAction
@@ -333,7 +317,7 @@ final class ApplicationCoordinator: NSObject {
             guard userInitiated || wasOpen || action != .openSettings else { return }
             self.dismissInputMonitoringWarning()
 
-            let setupWasPending = self.isTextShortcutPermissionSetupPending
+            let setupWasPending = self.appController.isTextShortcutPermissionSetupPending
             let alert = self.makeInputMonitoringAlert(action: action, setupWasPending: setupWasPending)
             self.displayedInputMonitoringAction = action
             self.showWarning(.inputMonitoring, alert: alert) { [weak self] accepted in
@@ -342,7 +326,7 @@ final class ApplicationCoordinator: NSObject {
                 guard self.appController.isInputMonitoringPaused else { return }
                 if accepted {
                     self.performInputMonitoringRecovery(action)
-                } else if setupWasPending && self.isTextShortcutPermissionSetupPending {
+                } else if setupWasPending && self.appController.isTextShortcutPermissionSetupPending {
                     self.cancelPendingTextShortcutPermissionSetup()
                 }
             }
@@ -398,7 +382,7 @@ final class ApplicationCoordinator: NSObject {
         DispatchQueue.main.async { [weak self] in
             guard let self, !self.isRestarting, !self.appController.isAccessibilityAllowed else { return }
 
-            let setupWasPending = self.isTextShortcutPermissionSetupPending
+            let setupWasPending = self.appController.isTextShortcutPermissionSetupPending
             let alert = NSAlert()
             alert.messageText = setupWasPending
                 ? localized("Step 2 of 2: Allow Accessibility")
@@ -421,7 +405,7 @@ final class ApplicationCoordinator: NSObject {
                     if !self.appController.isAccessibilityAllowed {
                         self.appController.openAccessibilitySettings()
                     }
-                } else if setupWasPending && self.isTextShortcutPermissionSetupPending {
+                } else if setupWasPending && self.appController.isTextShortcutPermissionSetupPending {
                     self.cancelPendingTextShortcutPermissionSetup()
                 }
             }
@@ -429,15 +413,12 @@ final class ApplicationCoordinator: NSObject {
     }
 
     private func continuePendingTextShortcutPermissionSetup() {
-        guard isTextShortcutPermissionSetupPending,
-              !isRecordingShortcut,
+        guard appController.isTextShortcutPermissionSetupPending,
+              !appController.isRecordingTextShortcut,
               !isRestarting else {
             return
         }
-        switch TextShortcutPermissionSetup.nextStep(
-            inputMonitoringAllowed: inputMonitoringPermission.isAllowed,
-            accessibilityAllowed: appController.isAccessibilityAllowed
-        ) {
+        switch appController.textShortcutPermissionSetupStep {
         case .inputMonitoring:
             showInputMonitoringRecovery()
         case .accessibility:
@@ -446,28 +427,13 @@ final class ApplicationCoordinator: NSObject {
             hasPresentedPendingAccessibilityGuidance = true
             showAccessibilityRecovery()
         case .complete:
-            isTextShortcutPermissionSetupPending = false
-            hasPresentedPendingAccessibilityGuidance = false
+            cancelPendingTextShortcutPermissionSetup()
         }
     }
 
     private func cancelPendingTextShortcutPermissionSetup() {
-        isTextShortcutPermissionSetupPending = false
+        appController.finishTextShortcutPermissionSetup()
         hasPresentedPendingAccessibilityGuidance = false
-    }
-
-    private var isTextShortcutPermissionSetupPending: Bool {
-        get {
-            UserDefaults.standard.bool(
-                forKey: Self.textShortcutPermissionSetupPendingKey
-            )
-        }
-        set {
-            UserDefaults.standard.set(
-                newValue,
-                forKey: Self.textShortcutPermissionSetupPendingKey
-            )
-        }
     }
 
     private func terminate() {

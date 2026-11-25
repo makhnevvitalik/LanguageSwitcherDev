@@ -2,10 +2,12 @@
 // SPDX-License-Identifier: MIT AND LicenseRef-Commons-Clause-1.0
 
 import AppKit
+import Combine
 import Foundation
 import SwiftUI
 import LanguageSwitcherEdition
 import LanguageSwitcherLocalization
+import LanguageSwitcherMacOS
 
 @MainActor
 final class StatusMenuController: NSObject, NSMenuDelegate {
@@ -17,7 +19,7 @@ final class StatusMenuController: NSObject, NSMenuDelegate {
     }
 
     private let statusItem: NSStatusItem
-    private let monitoringWarningBadge = StatusWarningBadge()
+    private let statusBadge = StatusBadge()
     private let identity: AppIdentity
     private let userDefaults: UserDefaults
     private let currentLanguage: () -> AppLanguage
@@ -25,6 +27,8 @@ final class StatusMenuController: NSObject, NSMenuDelegate {
     private let textToolsController: TextToolsMenuController
     private let keyboardSwitchingController: KeyboardSwitchingMenuController
     private let aboutWindowController: AboutWindowController
+    private let updates: GitHubReleaseChecker
+    private var updateObservation: AnyCancellable?
     private let currentState: () -> StatusMenuState
     private let onResumeKeyboardSwitching: () -> Void
     private let onLaunchAtLoginChange: (Bool) -> Void
@@ -51,6 +55,7 @@ final class StatusMenuController: NSObject, NSMenuDelegate {
         textToolsController: TextToolsMenuController,
         keyboardSwitchingController: KeyboardSwitchingMenuController,
         aboutWindowController: AboutWindowController,
+        updates: GitHubReleaseChecker,
         currentState: @escaping () -> StatusMenuState,
         onResumeKeyboardSwitching: @escaping () -> Void,
         onLaunchAtLoginChange: @escaping (Bool) -> Void,
@@ -64,6 +69,7 @@ final class StatusMenuController: NSObject, NSMenuDelegate {
         self.textToolsController = textToolsController
         self.keyboardSwitchingController = keyboardSwitchingController
         self.aboutWindowController = aboutWindowController
+        self.updates = updates
         self.currentState = currentState
         self.onResumeKeyboardSwitching = onResumeKeyboardSwitching
         self.onLaunchAtLoginChange = onLaunchAtLoginChange
@@ -71,6 +77,12 @@ final class StatusMenuController: NSObject, NSMenuDelegate {
         super.init()
         configureStatusItem()
         configurePanel()
+        updateObservation = updates.$availableRelease.dropFirst()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.updateStatusBadge()
+                self?.resizeVisibleSurface()
+            }
         textToolsController.onWillPerformAction = { [weak self] in
             self?.closePanel()
         }
@@ -101,10 +113,34 @@ final class StatusMenuController: NSObject, NSMenuDelegate {
         closePanel()
     }
 
-    func setAvailableReleaseURL(_ url: URL?) {
-        guard presentation.releaseURL != url else { return }
-        presentation.releaseURL = url
-        resizeVisibleSurface()
+    func leaveForShortcutSettings(from trigger: NSButton) -> (() -> Void)? {
+        guard let source = trigger.window else { return nil }
+        return leaveForAuxiliaryWindow(from: source, restoringFocusTo: source.firstResponder === trigger ? trigger : nil)
+    }
+
+    private func leaveForAuxiliaryWindow(from source: NSWindow, restoringFocusTo trigger: NSControl?) -> (() -> Void)? {
+        guard source === panel || source === settingsWindow else { return nil }
+        let isPanel = source === panel
+        let scrollOrigin = scrollView.contentView.bounds.origin
+        if isPanel {
+            closePanel()
+        }
+        return { [weak self, weak source, weak trigger] in
+            guard let self, let source else { return }
+            if isPanel {
+                guard self.settingsWindow?.isVisible != true, self.statusItem.isVisible else { return }
+                self.showPanel()
+                let clip = self.scrollView.contentView
+                let bounds = NSRect(origin: scrollOrigin, size: clip.bounds.size)
+                clip.scroll(to: clip.constrainBoundsRect(bounds).origin)
+                self.scrollView.reflectScrolledClipView(clip)
+            } else if source.isVisible {
+                source.makeKeyAndOrderFront(nil)
+            }
+            if let trigger, trigger.window === source, trigger.isEnabled, source.isVisible {
+                source.makeFirstResponder(trigger)
+            }
+        }
     }
 
     func refreshMonitoringState() {
@@ -205,19 +241,17 @@ final class StatusMenuController: NSObject, NSMenuDelegate {
             statusItem.button?.image = image
         }
         if let button = statusItem.button {
-            button.setAccessibilityLabel(identity.productName)
-            monitoringWarningBadge.translatesAutoresizingMaskIntoConstraints = false
-            monitoringWarningBadge.setAccessibilityElement(false)
-            monitoringWarningBadge.isHidden = true
-            button.addSubview(monitoringWarningBadge)
+            statusBadge.translatesAutoresizingMaskIntoConstraints = false
+            statusBadge.setAccessibilityElement(false)
+            button.addSubview(statusBadge)
             NSLayoutConstraint.activate([
-                monitoringWarningBadge.widthAnchor.constraint(equalToConstant: 6),
-                monitoringWarningBadge.heightAnchor.constraint(equalToConstant: 6),
-                monitoringWarningBadge.topAnchor.constraint(equalTo: button.topAnchor, constant: 3),
-                monitoringWarningBadge.trailingAnchor.constraint(equalTo: button.trailingAnchor, constant: -3)
+                statusBadge.widthAnchor.constraint(equalToConstant: 6),
+                statusBadge.heightAnchor.constraint(equalToConstant: 6),
+                statusBadge.topAnchor.constraint(equalTo: button.topAnchor, constant: 3),
+                statusBadge.trailingAnchor.constraint(equalTo: button.trailingAnchor, constant: -3)
             ])
         }
-        statusItem.button?.toolTip = identity.productName
+        updateStatusBadge()
         statusItem.button?.target = self
         statusItem.button?.action = #selector(togglePanel)
         statusItem.button?.sendAction(on: [.leftMouseUp, .rightMouseUp])
@@ -248,7 +282,7 @@ final class StatusMenuController: NSObject, NSMenuDelegate {
         canvas.addSubview(shadowContainer)
 
         hosting = NSHostingController(rootView: PanelContent(
-            presentation: presentation, name: identity.productName,
+            presentation: presentation, updates: updates, name: identity.productName,
             width: Self.panelContentWidth, settingsButton: makeSettingsButton(),
             textTools: textToolsController, keyboardSwitching: keyboardSwitchingController,
             resume: { [weak self] in self?.resumeInputMonitoring() },
@@ -358,14 +392,28 @@ final class StatusMenuController: NSObject, NSMenuDelegate {
 
     @discardableResult
     private func updateMonitoringPresentation() -> Bool {
-        let paused = currentState().isInputMonitoringPaused
-        guard presentation.isMonitoringPaused != paused else { return false }
-        presentation.isMonitoringPaused = paused
-        let label = paused ? "\(identity.productName) — \(localized("Input Monitoring is paused"))" : identity.productName
+        let warning = currentState().monitoringWarning
+        guard presentation.monitoringWarning != warning else { return false }
+        presentation.monitoringWarning = warning
+        updateStatusBadge()
+        return true
+    }
+
+    private func updateStatusBadge() {
+        let detail: String?
+        if let warning = presentation.monitoringWarning {
+            statusBadge.color = .systemOrange
+            detail = warning.title
+        } else if updates.availableRelease != nil {
+            statusBadge.color = .systemBlue
+            detail = localized("Update available")
+        } else {
+            detail = nil
+        }
+        statusBadge.isHidden = detail == nil
+        let label = detail.map { "\(identity.productName) — \($0)" } ?? identity.productName
         statusItem.button?.toolTip = label
         statusItem.button?.setAccessibilityLabel(label)
-        monitoringWarningBadge.isHidden = !paused
-        return true
     }
 
     func menuWillOpen(_ menu: NSMenu) {
@@ -501,14 +549,17 @@ final class StatusMenuController: NSObject, NSMenuDelegate {
     }
 
     @objc private func showAbout() {
-        closePanel()
-        aboutWindowController.showWindow()
+        let source = panel.isVisible ? panel : settingsWindow.flatMap { $0.isVisible ? $0 : nil }
+        let returnToSource = source.flatMap {
+            leaveForAuxiliaryWindow(from: $0, restoringFocusTo: AppStyle.restorableControl(in: $0))
+        }
+        aboutWindowController.showWindow(returningTo: returnToSource)
     }
 
     @objc private func openAvailableRelease() {
-        guard let availableReleaseURL = presentation.releaseURL else { return }
+        guard let release = updates.availableRelease else { return }
         closePanel()
-        NSWorkspace.shared.open(availableReleaseURL)
+        NSWorkspace.shared.open(release.url)
     }
 
     @objc private func exitAction() {
@@ -517,11 +568,15 @@ final class StatusMenuController: NSObject, NSMenuDelegate {
     }
 }
 
-private final class StatusWarningBadge: NSView {
+private final class StatusBadge: NSView {
+    var color: NSColor = .systemOrange {
+        didSet { needsDisplay = true }
+    }
+
     override func hitTest(_ point: NSPoint) -> NSView? { nil }
 
     override func draw(_ dirtyRect: NSRect) {
-        NSColor.systemOrange.setFill()
+        color.setFill()
         NSBezierPath(ovalIn: bounds).fill()
     }
 }

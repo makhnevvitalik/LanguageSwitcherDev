@@ -7,6 +7,89 @@ import LanguageSwitcherDomain
 import XCTest
 
 final class TrackedTextEventEditorTests: XCTestCase {
+    func testAmbiguousBackspaceSkipsReplacementUntilFreshTyping() {
+        let fixture = Fixture(text: "a")
+        for event in ["क", "\u{094D}", "ष"] {
+            fixture.buffer.recordPrintableText(event, applicationID: "editor")
+        }
+        var result: TextReplacementResult?
+        func uppercase() {
+            XCTAssertTrue(fixture.editor.replaceTrackedText(
+                scope: .typedText,
+                transform: { TextTransformation(text: $0.uppercased()) },
+                completion: { result = $0 }
+            ))
+        }
+
+        fixture.buffer.recordBackspace(applicationID: "editor")
+        XCTAssertNil(fixture.buffer.snapshot(for: "editor"))
+        uppercase()
+        XCTAssertEqual(result, .contextChanged)
+        XCTAssertTrue(fixture.eventReplacer.calls.isEmpty)
+
+        fixture.buffer.recordBackspace(applicationID: "editor")
+        uppercase()
+        XCTAssertEqual(result, .contextChanged)
+        XCTAssertTrue(fixture.eventReplacer.calls.isEmpty)
+
+        fixture.buffer.recordPrintableText("new", applicationID: "editor")
+        uppercase()
+        XCTAssertEqual(result, .replaced(TextTransformation(text: "NEW")))
+        XCTAssertEqual(fixture.eventReplacer.calls, [.init(deleteCount: 3, text: "NEW")])
+    }
+
+    func testReplacementDoesNotSendDeletionForMultiScalarGraphemes() {
+        for (initial, finalInput) in [
+            ("e", "\u{301}x"), ("xक्‍ष", "a"), ("Word👩‍💻", "hello"), ("hello\r", "\n")
+        ] {
+            let fixture = Fixture(text: initial)
+            fixture.buffer.recordPrintableText(finalInput, applicationID: "editor")
+            var result: TextReplacementResult?
+
+            XCTAssertTrue(fixture.editor.replaceTrackedText(
+                scope: .lastWord,
+                transform: { TextTransformation(text: $0.uppercased()) },
+                completion: { result = $0 }
+            ))
+
+            XCTAssertEqual(result, .contextChanged)
+            XCTAssertTrue(fixture.eventReplacer.calls.isEmpty)
+            XCTAssertEqual(fixture.buffer.snapshot(for: "editor")?.text, initial + finalInput)
+        }
+    }
+
+    func testReplacementPreservesUnchangedMultiScalarPrefix() {
+        for scope: TextConversionScope in [.typedText, .lastWord] {
+            let fixture = Fixture(text: "👩‍💻hello")
+            var result: TextReplacementResult?
+
+            XCTAssertTrue(fixture.editor.replaceTrackedText(
+                scope: scope,
+                transform: { TextTransformation(text: $0.uppercased()) },
+                completion: { result = $0 }
+            ))
+
+            XCTAssertEqual(result, .replaced(TextTransformation(text: "👩‍💻HELLO")))
+            XCTAssertEqual(fixture.eventReplacer.calls, [.init(deleteCount: 5, text: "HELLO")])
+            XCTAssertEqual(fixture.buffer.snapshot(for: "editor")?.text, "👩‍💻HELLO")
+        }
+    }
+
+    func testLastWordCanBeReplacedAfterMultiScalarGraphemeOutsideDeletionRange() {
+        let fixture = Fixture(text: "e\u{301} élève привет")
+        var result: TextReplacementResult?
+
+        XCTAssertTrue(fixture.editor.replaceTrackedText(
+            scope: .lastWord,
+            transform: { TextTransformation(text: $0.uppercased()) },
+            completion: { result = $0 }
+        ))
+
+        XCTAssertEqual(result, .replaced(TextTransformation(text: "ПРИВЕТ")))
+        XCTAssertEqual(fixture.eventReplacer.calls, [.init(deleteCount: 6, text: "ПРИВЕТ")])
+        XCTAssertEqual(fixture.buffer.snapshot(for: "editor")?.text, "e\u{301} élève ПРИВЕТ")
+    }
+
     func testTypedTextReplacesWholeTrackedBuffer() {
         let fixture = Fixture(text: "hello ghbdtn")
         var result: TextReplacementResult?
